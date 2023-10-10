@@ -1,0 +1,40 @@
+{
+  "author": "Robert J. Sawyer",
+  "id": "1458",
+  "description": "FLASHFORWARDTwo minutes and seventeen seconds that changed the worldSuddenly, without warning, all seven billion people on Earth black out for more than two minutes. Millions die as planes fall from the sky, people tumble down staircases, and cars plow into each other.But that’s the least of the survivors’ challenges. During the blackout, everyone experienced a glimpse of what his or her future holds—and the interlocking mosaic of these visions threatens to unravel the present.",
+  "editions": [
+    "english",
+    "spanish",
+    "french"
+  ],
+  "genres": [
+    "audiobook",
+    "cultural (canada)",
+    "fantasy",
+    "fiction",
+    "novels",
+    "science fiction",
+    "science fiction (time travel)",
+    "science fiction fantasy",
+    "speculative fiction",
+    "thriller"
+  ],
+  "inventory": [
+    {
+      "status": "maintenance",
+      "stock_id": "1458_1"
+    },
+    {
+      "status": "on_loan",
+      "stock_id": "1458_2"
+    }
+  ],
+  "metrics": {
+    "rating_votes": 14620,
+    "score": 3.64
+  },
+  "pages": 557,
+  "title": "Flashforward",
+  "url": "https://www.goodreads.com/book/show/337132.Flashforward",
+  "year_published": 1999
+}

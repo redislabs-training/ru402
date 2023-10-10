@@ -1,0 +1,36 @@
+{
+  "author": "John Christopher",
+  "id": "335",
+  "description": "Will, Beanpole, and Henry have managed to escape the Tripods. But instead of living in safety, in the small community of free people, they have chosen to embark upon a mission that may cost them their lives.",
+  "editions": [
+    "english",
+    "spanish",
+    "french"
+  ],
+  "genres": [
+    "adventure",
+    "apocalyptic (post apocalyptic)",
+    "childrens",
+    "fantasy",
+    "fiction",
+    "science fiction",
+    "science fiction (aliens)",
+    "science fiction (dystopia)",
+    "science fiction fantasy",
+    "young adult"
+  ],
+  "inventory": [
+    {
+      "status": "available",
+      "stock_id": "335_1"
+    }
+  ],
+  "metrics": {
+    "rating_votes": 7284,
+    "score": 4.07
+  },
+  "pages": 571,
+  "title": "The City of Gold and Lead",
+  "url": "https://www.goodreads.com/book/show/64338.The_City_of_Gold_and_Lead",
+  "year_published": 1967
+}

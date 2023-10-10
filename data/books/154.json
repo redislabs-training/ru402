@@ -1,0 +1,46 @@
+{
+  "author": "Jodi Taylor",
+  "id": "154",
+  "description": "Like a smaller and much scruffier Greta Garbo – finally – Markham speaks!It’s Christmas and time for the first (and almost certainly last) St Mary’s Annual Children’s Christmas Party – attendance compulsory, by order of Dr Bairstow. Discovered practising his illegal reindeer dance and poo-dropping routine, our hero, along with fellow disaster-magnets Peterson and Maxwell, is despatched to Anglo-Saxon England to discover the truth about Alfred and the cakes.In his own words, our hero reveals Major Guthrie’s six-point guide to a successful assignment and the Security Section’s true opinion of the History Department. And of historians in general. And of one historian in particular.And, just to be clear, it is time travel, for God’s sake. Forget all that pretentious ‘investigating major historical events in contemporary time’ rubbish.This is history without the capital ‘H’. Because this is the way the Security Section rolls!",
+  "editions": [
+    "english"
+  ],
+  "genres": [
+    "adventure",
+    "audiobook",
+    "fantasy",
+    "fiction",
+    "historical",
+    "historical (historical fiction)",
+    "humor",
+    "science fiction",
+    "science fiction (time travel)",
+    "short stories"
+  ],
+  "inventory": [
+    {
+      "status": "available",
+      "stock_id": "154_1"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "154_2"
+    },
+    {
+      "status": "on_loan",
+      "stock_id": "154_3"
+    },
+    {
+      "status": "available",
+      "stock_id": "154_4"
+    }
+  ],
+  "metrics": {
+    "rating_votes": 2451,
+    "score": 4.3
+  },
+  "pages": 963,
+  "title": "My Name is Markham",
+  "url": "https://www.goodreads.com/book/show/30197317-my-name-is-markham",
+  "year_published": 2016
+}

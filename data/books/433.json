@@ -1,0 +1,64 @@
+{
+  "author": "Ray Bradbury",
+  "id": "433",
+  "description": "Free online fiction.The short story, A Sound of Thunder, involves a Time Travel Safari where rich businessmen pay to travel back to prehistoric times and hunt real live dinosaurs.",
+  "editions": [
+    "english",
+    "spanish",
+    "french"
+  ],
+  "genres": [
+    "academic (read for school)",
+    "academic (school)",
+    "adventure",
+    "classics",
+    "fantasy",
+    "fiction",
+    "science fiction",
+    "science fiction (time travel)",
+    "science fiction fantasy",
+    "short stories"
+  ],
+  "inventory": [
+    {
+      "status": "maintenance",
+      "stock_id": "433_1"
+    },
+    {
+      "status": "on_loan",
+      "stock_id": "433_2"
+    },
+    {
+      "status": "available",
+      "stock_id": "433_3"
+    },
+    {
+      "status": "on_loan",
+      "stock_id": "433_4"
+    },
+    {
+      "status": "available",
+      "stock_id": "433_5"
+    },
+    {
+      "status": "available",
+      "stock_id": "433_6"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "433_7"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "433_8"
+    }
+  ],
+  "metrics": {
+    "rating_votes": 4677,
+    "score": 4.11
+  },
+  "pages": 772,
+  "title": "A Sound of Thunder",
+  "url": "https://www.goodreads.com/book/show/17568373-a-sound-of-thunder",
+  "year_published": 1951
+}

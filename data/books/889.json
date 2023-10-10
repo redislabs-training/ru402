@@ -1,0 +1,40 @@
+{
+  "author": "Clifford D. Simak",
+  "id": "889",
+  "description": "Simak's \"City\" is a series of connected stories, a series of legends, myths, and campfire stories told by Dogs about the end of human civilization, centering on the Webster family, who, among their other accomplishments, designed the ships that took Men to the stars and gave Dogs the gift of speech and robots to be their hands.Contents:· City · nv Astounding May 1944 · Huddling Place · ss Astounding Jul 1944 · Census · nv Astounding Sep 1944 · Desertion · ss Astounding Nov 1944 · Paradise · ss Astounding Jun 1946 · Hobbies · nv Astounding Nov 1946 · Aesop · nv Astounding Dec 1947 · The Simple Way [The Trouble with Ants] · nv Fantastic Adventures Jan 1951 · Author’s Note · is · Epilog · ss Astounding, ed. Harry Harrison, Random, 1973",
+  "editions": [
+    "english",
+    "spanish",
+    "french"
+  ],
+  "genres": [
+    "animals",
+    "animals (dogs)",
+    "classics",
+    "fantasy",
+    "fiction",
+    "science fiction",
+    "science fiction (dystopia)",
+    "science fiction fantasy",
+    "short stories",
+    "speculative fiction"
+  ],
+  "inventory": [
+    {
+      "status": "available",
+      "stock_id": "889_1"
+    },
+    {
+      "status": "on_loan",
+      "stock_id": "889_2"
+    }
+  ],
+  "metrics": {
+    "rating_votes": 14738,
+    "score": 4.1
+  },
+  "pages": 280,
+  "title": "City",
+  "url": "https://www.goodreads.com/book/show/222093.City",
+  "year_published": 1952
+}

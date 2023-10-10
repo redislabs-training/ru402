@@ -1,0 +1,43 @@
+{
+  "author": "Robert A. Heinlein",
+  "id": "5765",
+  "description": "The historians can’t seem to settle whether to call this one \"The Third Space War\" (or the fourth), or whether \"The First Interstellar War\" fits it better. We just call it “The Bug War.\" Everything up to then and still later were \"incidents,\" \"patrols,\" or \"police actions.\" However, you are just as dead if you buy the farm in an \"incident\" as you are if you buy it in a declared war...In one of Robert A. Heinlein’s most controversial bestsellers, a recruit of the future goes through the toughest boot camp in the Universe—and into battle with the Terran Mobile Infantry against mankind’s most alarming enemy.",
+  "editions": [
+    "english",
+    "spanish"
+  ],
+  "genres": [
+    "audiobook",
+    "classics",
+    "fantasy",
+    "fiction",
+    "science fiction",
+    "science fiction fantasy",
+    "space",
+    "space (space opera)",
+    "war",
+    "war (military fiction)"
+  ],
+  "inventory": [
+    {
+      "status": "maintenance",
+      "stock_id": "5765_1"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "5765_2"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "5765_3"
+    }
+  ],
+  "metrics": {
+    "rating_votes": 197451,
+    "score": 4
+  },
+  "pages": 372,
+  "title": "Starship Troopers",
+  "url": "https://www.goodreads.com/book/show/17214.Starship_Troopers",
+  "year_published": 1959
+}

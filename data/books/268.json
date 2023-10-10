@@ -1,0 +1,39 @@
+{
+  "author": "Joss Whedon",
+  "id": "268",
+  "description": "Emma Frost's erratic behaviour has the X-Men spinning in a non-stop downward spiral. Will an unlikely union be the final straw? After secretly lying in wait for months, the new Hellfire Club makes its move!",
+  "editions": [
+    "english",
+    "spanish"
+  ],
+  "genres": [
+    "comics (comic book)",
+    "comics (superheroes)",
+    "fantasy",
+    "fiction",
+    "graphic novels comics",
+    "marvel (x men)",
+    "science fiction",
+    "sequential art (comics)",
+    "sequential art (graphic novels)",
+    "superheroes (marvel)"
+  ],
+  "inventory": [
+    {
+      "status": "maintenance",
+      "stock_id": "268_1"
+    },
+    {
+      "status": "on_loan",
+      "stock_id": "268_2"
+    }
+  ],
+  "metrics": {
+    "rating_votes": 9346,
+    "score": 4.23
+  },
+  "pages": 785,
+  "title": "Astonishing X-Men, Volume 3: Torn",
+  "url": "https://www.goodreads.com/book/show/31981.Astonishing_X_Men_Volume_3",
+  "year_published": 2007
+}

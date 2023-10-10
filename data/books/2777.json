@@ -1,0 +1,40 @@
+{
+  "author": "Jasper Fforde",
+  "id": "2777",
+  "description": "In the good old days, magic was indispensable—it could both save a kingdom and clear a clogged drain. But now magic is fading: drain cleaner is cheaper than a spell, and magic carpets are used for pizza delivery. Fifteen-year-old foundling Jennifer Strange runs Kazam, an employment agency for magicians—but it’s hard to stay in business when magic is drying up. And then the visions start, predicting the death of the world’s last dragon at the hands of an unnamed Dragonslayer. If the visions are true, everything will change for Kazam—and for Jennifer. Because something is coming. Something known as . . . Big Magic.",
+  "editions": [
+    "english",
+    "spanish",
+    "french"
+  ],
+  "genres": [
+    "adventure",
+    "fantasy",
+    "fantasy (dragons)",
+    "fantasy (magic)",
+    "fiction",
+    "humor",
+    "science fiction fantasy",
+    "young adult",
+    "young adult (teen)",
+    "young adult (young adult fantasy)"
+  ],
+  "inventory": [
+    {
+      "status": "maintenance",
+      "stock_id": "2777_1"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "2777_2"
+    }
+  ],
+  "metrics": {
+    "rating_votes": 19683,
+    "score": 3.88
+  },
+  "pages": 1008,
+  "title": "The Last Dragonslayer",
+  "url": "https://www.goodreads.com/book/show/13316328-the-last-dragonslayer",
+  "year_published": 2010
+}

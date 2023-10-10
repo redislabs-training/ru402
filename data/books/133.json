@@ -1,0 +1,59 @@
+{
+  "author": "Kate Saunders",
+  "id": "133",
+  "description": "When Flora Fox's parents send their daughter off to boarding school, they have no idea that the train will take her back to 1935. On the journey Flora has a strange dream. She wakes up without her laptop or her phone, wearing a hideous uniform with ridiculous bloomers underneath. Slowly, she realizes she has gone back in time! But why?",
+  "editions": [
+    "english",
+    "spanish"
+  ],
+  "genres": [
+    "adventure",
+    "childrens",
+    "childrens (middle grade)",
+    "fantasy",
+    "fiction",
+    "historical",
+    "historical (historical fiction)",
+    "school stories (boarding school)",
+    "science fiction (time travel)",
+    "young adult"
+  ],
+  "inventory": [
+    {
+      "status": "on_loan",
+      "stock_id": "133_1"
+    },
+    {
+      "status": "available",
+      "stock_id": "133_2"
+    },
+    {
+      "status": "available",
+      "stock_id": "133_3"
+    },
+    {
+      "status": "on_loan",
+      "stock_id": "133_4"
+    },
+    {
+      "status": "available",
+      "stock_id": "133_5"
+    },
+    {
+      "status": "available",
+      "stock_id": "133_6"
+    },
+    {
+      "status": "available",
+      "stock_id": "133_7"
+    }
+  ],
+  "metrics": {
+    "rating_votes": 876,
+    "score": 4.06
+  },
+  "pages": 431,
+  "title": "Beswitched",
+  "url": "https://www.goodreads.com/book/show/7745639-beswitched",
+  "year_published": 2010
+}

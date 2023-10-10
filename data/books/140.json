@@ -1,0 +1,60 @@
+{
+  "author": "Alan Averill",
+  "id": "140",
+  "description": "Takahiro O’Leary has a very special job…   …working for the Axon Corporation as an explorer of parallel timelines—as many and as varied as anyone could imagine. A great gig—until information he brought back gave Axon the means to maximize profits by changing the past, present, and future of this world.   If Axon succeeds, Tak will lose Samira Moheb, the woman he has loved since high school—because her future will cease to exist. A veteran of the Iraq War suffering from post-traumatic stress disorder, Samira can barely function in her everyday life, much less deal with Tak’s ravings of multiple realities. The only way to save her is for Tak to use the time travel device he “borrowed” to transport them both to an alternate timeline.   But what neither Tak nor Axon knows is that the actual inventor of the device is searching for a timeline called the Beautiful Land—and he intends to destroy every other possible present and future to find it.   The switch is thrown, and reality begins to warp—horribly. And Tak realizes that to save Sam, he must save the entire world…",
+  "editions": [
+    "english",
+    "spanish",
+    "french"
+  ],
+  "genres": [
+    "adult",
+    "adult fiction",
+    "contemporary",
+    "fantasy",
+    "fiction",
+    "horror",
+    "science fiction",
+    "science fiction (time travel)",
+    "speculative fiction",
+    "thriller"
+  ],
+  "inventory": [
+    {
+      "status": "on_loan",
+      "stock_id": "140_1"
+    },
+    {
+      "status": "available",
+      "stock_id": "140_2"
+    },
+    {
+      "status": "available",
+      "stock_id": "140_3"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "140_4"
+    },
+    {
+      "status": "available",
+      "stock_id": "140_5"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "140_6"
+    },
+    {
+      "status": "on_loan",
+      "stock_id": "140_7"
+    }
+  ],
+  "metrics": {
+    "rating_votes": 784,
+    "score": 3.68
+  },
+  "pages": 799,
+  "title": "The Beautiful Land",
+  "url": "https://www.goodreads.com/book/show/15812169-the-beautiful-land",
+  "year_published": 2011
+}

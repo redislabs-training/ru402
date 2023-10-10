@@ -1,0 +1,64 @@
+{
+  "author": "Agustina Bazterrica",
+  "id": "1927",
+  "description": "Working at the local processing plant, Marcos is in the business of slaughtering humans —though no one calls them that anymore.His wife has left him, his father is sinking into dementia, and Marcos tries not to think too hard about how he makes a living. After all, it happened so quickly. First, it was reported that an infectious virus has made all animal meat poisonous to humans. Then governments initiated the “Transition.” Now, eating human meat—“special meat”—is legal. Marcos tries to stick to numbers, consignments, processing.Then one day he’s given a gift: a live specimen of the finest quality. Though he’s aware that any form of personal contact is forbidden on pain of death, little by little he starts to treat her like a human being. And soon, he becomes tortured by what has been lost—and what might still be saved.",
+  "editions": [
+    "english",
+    "spanish",
+    "french"
+  ],
+  "genres": [
+    "adult",
+    "adult fiction",
+    "audiobook",
+    "contemporary",
+    "fiction",
+    "horror",
+    "literary fiction",
+    "science fiction",
+    "science fiction (dystopia)",
+    "speculative fiction"
+  ],
+  "inventory": [
+    {
+      "status": "available",
+      "stock_id": "1927_1"
+    },
+    {
+      "status": "on_loan",
+      "stock_id": "1927_2"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "1927_3"
+    },
+    {
+      "status": "on_loan",
+      "stock_id": "1927_4"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "1927_5"
+    },
+    {
+      "status": "available",
+      "stock_id": "1927_6"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "1927_7"
+    },
+    {
+      "status": "on_loan",
+      "stock_id": "1927_8"
+    }
+  ],
+  "metrics": {
+    "rating_votes": 7395,
+    "score": 3.96
+  },
+  "pages": 1038,
+  "title": "Tender Is the Flesh",
+  "url": "https://www.goodreads.com/book/show/49090884-tender-is-the-flesh",
+  "year_published": 2017
+}

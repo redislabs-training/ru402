@@ -1,0 +1,50 @@
+{
+  "author": "Destiny Soria",
+  "id": "522",
+  "description": "In 1919, Ada Navarra—the intrepid daughter of immigrants—and Corinne Wells—a spunky, devil-may-care heiress—make an unlikely pair. But at the Cast Iron nightclub in Boston, anything and everything is possible. At night, on stage together, the two best friends, whose “afflicted” blood gives them the ability to create illusions through art, weave magic under the employ of Johnny Dervish, the club’s owner and a notorious gangster. By day, Ada and Corinne use these same skills to con the city’s elite in an attempt to keep the club afloat.When a “job” goes awry and Ada is imprisoned, she realizes they’re on the precipice of danger. Only Corinne—her partner in crime—can break her out of Haversham Asylum. But once Ada is out, they face betrayal at every turn.",
+  "editions": [
+    "english"
+  ],
+  "genres": [
+    "fantasy",
+    "fantasy (magic)",
+    "fantasy (paranormal)",
+    "fantasy (urban fantasy)",
+    "fiction",
+    "historical",
+    "historical (historical fiction)",
+    "historical fiction (historical fantasy)",
+    "young adult",
+    "young adult (young adult fantasy)"
+  ],
+  "inventory": [
+    {
+      "status": "available",
+      "stock_id": "522_1"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "522_2"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "522_3"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "522_4"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "522_5"
+    }
+  ],
+  "metrics": {
+    "rating_votes": 2116,
+    "score": 3.73
+  },
+  "pages": 791,
+  "title": "Iron Cast",
+  "url": "https://www.goodreads.com/book/show/28818313-iron-cast",
+  "year_published": 2016
+}

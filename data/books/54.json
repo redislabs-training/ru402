@@ -1,0 +1,43 @@
+{
+  "author": "Grant Morrison",
+  "id": "54",
+  "description": "The collection of comics savant Grant Morrison's legendary run on DOOM PATROL continues in this fifth volume reprinting issues #51-57. Featuring the final fate of the Brotherhood of Dada and the rise of the unstoppable Candlemaker, DOOM PATROL VOL. 5 also includes the delightful Jack Kirby tribute issue \"And Men Shall Call Him -- HERO!\" as well as a cover by the incomparable Brian Bolland.",
+  "editions": [
+    "english",
+    "spanish"
+  ],
+  "genres": [
+    "comics (comic book)",
+    "comics (superheroes)",
+    "fantasy",
+    "graphic novels comics",
+    "horror",
+    "science fiction",
+    "sequential art (comics)",
+    "sequential art (comix)",
+    "sequential art (graphic novels)",
+    "superheroes (dc comics)"
+  ],
+  "inventory": [
+    {
+      "status": "on_loan",
+      "stock_id": "54_1"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "54_2"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "54_3"
+    }
+  ],
+  "metrics": {
+    "rating_votes": 1446,
+    "score": 4.26
+  },
+  "pages": 470,
+  "title": "Doom Patrol, Vol. 5: Magic Bus",
+  "url": "https://www.goodreads.com/book/show/22360.Doom_Patrol_Vol_5",
+  "year_published": 2007
+}

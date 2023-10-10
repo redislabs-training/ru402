@@ -1,0 +1,46 @@
+{
+  "author": "Brandon Sanderson",
+  "id": "10542",
+  "description": "Defeated, crushed, and driven almost to extinction, the remnants of the human race are trapped on a planet that is constantly attacked by mysterious alien starfighters. Spensa, a teenage girl living among them, longs to be a pilot. When she discovers the wreckage of an ancient ship, she realizes this dream might be possible—assuming she can repair the ship, navigate flight school, and (perhaps most importantly) persuade the strange machine to help her. Because this ship, uniquely, appears to have a soul.",
+  "editions": [
+    "english"
+  ],
+  "genres": [
+    "adventure",
+    "audiobook",
+    "fantasy",
+    "fiction",
+    "science fiction",
+    "science fiction (aliens)",
+    "science fiction (dystopia)",
+    "science fiction fantasy",
+    "space",
+    "young adult"
+  ],
+  "inventory": [
+    {
+      "status": "available",
+      "stock_id": "10542_1"
+    },
+    {
+      "status": "available",
+      "stock_id": "10542_2"
+    },
+    {
+      "status": "available",
+      "stock_id": "10542_3"
+    },
+    {
+      "status": "available",
+      "stock_id": "10542_4"
+    }
+  ],
+  "metrics": {
+    "rating_votes": 73702,
+    "score": 4.51
+  },
+  "pages": 910,
+  "title": "Skyward",
+  "url": "https://www.goodreads.com/book/show/36642458-skyward",
+  "year_published": 2018
+}

@@ -1,0 +1,39 @@
+{
+  "author": "Jeff Lemire",
+  "id": "165",
+  "description": "One young robot's struggle to stay alive in a universe where all androids have been outlawed and bounty hunters lurk on every planet.A rip-roaring and heart-felt cosmic odyssey that pits humanity against machine, and world against world, to create a sprawling space opera from the creators of Trillium, Sweet Tooth, and Little Gotham.",
+  "editions": [
+    "english",
+    "spanish"
+  ],
+  "genres": [
+    "comics (comic book)",
+    "fiction",
+    "graphic novels comics",
+    "science fiction",
+    "science fiction fantasy",
+    "sequential art",
+    "sequential art (comics)",
+    "sequential art (graphic novels)",
+    "space",
+    "speculative fiction"
+  ],
+  "inventory": [
+    {
+      "status": "maintenance",
+      "stock_id": "165_1"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "165_2"
+    }
+  ],
+  "metrics": {
+    "rating_votes": 1570,
+    "score": 4.18
+  },
+  "pages": 544,
+  "title": "Descender #1",
+  "url": "https://www.goodreads.com/book/show/24970339-descender-1",
+  "year_published": 2015
+}

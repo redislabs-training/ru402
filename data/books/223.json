@@ -1,0 +1,48 @@
+{
+  "author": "Linda Buckley-Archer",
+  "id": "223",
+  "description": "The Tar Man's employer, Lord Luxon, steals the time machine and travels to 19th century New York - just in time to sabotage the American War of Independence...",
+  "editions": [
+    "english",
+    "spanish",
+    "french"
+  ],
+  "genres": [
+    "adventure",
+    "childrens",
+    "childrens (middle grade)",
+    "fantasy",
+    "fiction",
+    "historical",
+    "historical (historical fiction)",
+    "science fiction",
+    "science fiction (time travel)",
+    "young adult"
+  ],
+  "inventory": [
+    {
+      "status": "on_loan",
+      "stock_id": "223_1"
+    },
+    {
+      "status": "on_loan",
+      "stock_id": "223_2"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "223_3"
+    },
+    {
+      "status": "on_loan",
+      "stock_id": "223_4"
+    }
+  ],
+  "metrics": {
+    "rating_votes": 2048,
+    "score": 3.86
+  },
+  "pages": 968,
+  "title": "Time Quake",
+  "url": "https://www.goodreads.com/book/show/4934587-time-quake",
+  "year_published": 2009
+}

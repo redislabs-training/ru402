@@ -1,0 +1,59 @@
+{
+  "author": "Mary Pope Osborne",
+  "id": "798",
+  "description": "Jack and Annie don't need another mummy. But that's what they get when the Magic Tree House whisks them back to ancient Egypt. There they meet a long-dead queen who needs their help. Will Jack and Annie be able to solve the puzzle, or will they end up as mummies themselves?",
+  "editions": [
+    "english",
+    "spanish"
+  ],
+  "genres": [
+    "adventure",
+    "childrens",
+    "childrens (chapter books)",
+    "childrens (middle grade)",
+    "fantasy",
+    "fiction",
+    "historical",
+    "historical (historical fiction)",
+    "mystery",
+    "science fiction (time travel)"
+  ],
+  "inventory": [
+    {
+      "status": "on_loan",
+      "stock_id": "798_1"
+    },
+    {
+      "status": "on_loan",
+      "stock_id": "798_2"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "798_3"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "798_4"
+    },
+    {
+      "status": "available",
+      "stock_id": "798_5"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "798_6"
+    },
+    {
+      "status": "available",
+      "stock_id": "798_7"
+    }
+  ],
+  "metrics": {
+    "rating_votes": 19059,
+    "score": 3.87
+  },
+  "pages": 621,
+  "title": "Mummies in the Morning",
+  "url": "https://www.goodreads.com/book/show/268955.Mummies_in_the_Morning",
+  "year_published": 1993
+}

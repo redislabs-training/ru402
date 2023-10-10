@@ -1,0 +1,36 @@
+{
+  "author": "Osamu Tezuka",
+  "id": "69",
+  "description": "Presents the adventures of the robotic Astro Boy, including how he was created and his battles with the Hot Dog Corps.",
+  "editions": [
+    "english",
+    "spanish",
+    "french"
+  ],
+  "genres": [
+    "adventure",
+    "childrens",
+    "classics",
+    "fantasy",
+    "fiction",
+    "graphic novels comics",
+    "science fiction",
+    "sequential art (comics)",
+    "sequential art (graphic novels)",
+    "sequential art (manga)"
+  ],
+  "inventory": [
+    {
+      "status": "on_loan",
+      "stock_id": "69_1"
+    }
+  ],
+  "metrics": {
+    "rating_votes": 941,
+    "score": 3.78
+  },
+  "pages": 1019,
+  "title": "Astro Boy, Vol. 1",
+  "url": "https://www.goodreads.com/book/show/135074.Astro_Boy_Vol_1",
+  "year_published": 1952
+}

@@ -1,0 +1,33 @@
+{
+  "author": "Martha Wells",
+  "id": "43",
+  "description": "“My risk-assessment module predicts a 53 percent chance of a human-on-human massacre before the end of the contract.”A short story published in Wired.com magazine on December 17, 2018.",
+  "editions": [
+    "english"
+  ],
+  "genres": [
+    "adult",
+    "artificial intelligence",
+    "fantasy",
+    "fiction",
+    "humor",
+    "science fiction",
+    "science fiction (dystopia)",
+    "short stories",
+    "space"
+  ],
+  "inventory": [
+    {
+      "status": "available",
+      "stock_id": "43_1"
+    }
+  ],
+  "metrics": {
+    "rating_votes": 274,
+    "score": 4.05
+  },
+  "pages": 369,
+  "title": "Compulsory",
+  "url": "https://www.goodreads.com/book/show/56033969-compulsory",
+  "year_published": 2018
+}

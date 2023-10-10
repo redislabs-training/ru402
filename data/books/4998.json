@@ -1,0 +1,38 @@
+{
+  "author": "Neal Shusterman",
+  "id": "4998",
+  "description": "When the California drought escalates to catastrophic proportions, one teen is forced to make life and death decisions for her family in this harrowing story of survival,The drought—or the Tap-Out, as everyone calls it—has been going on for a while now. Everyone’s lives have become an endless list of don’ts: don’t water the lawn, don’t fill up your pool, don’t take long showers.Until the taps run dry.Suddenly, Alyssa’s quiet suburban street spirals into a warzone of desperation; neighbors and families turned against each other on the hunt for water. And when her parents don’t return and her life—and the life of her brother—is threatened, Alyssa has to make impossible choices if she’s going to survive.",
+  "editions": [
+    "english"
+  ],
+  "genres": [
+    "adventure",
+    "adventure (survival)",
+    "audiobook",
+    "contemporary",
+    "fiction",
+    "realistic fiction",
+    "science fiction",
+    "science fiction (dystopia)",
+    "young adult",
+    "young adult (teen)"
+  ],
+  "inventory": [
+    {
+      "status": "on_loan",
+      "stock_id": "4998_1"
+    },
+    {
+      "status": "on_loan",
+      "stock_id": "4998_2"
+    }
+  ],
+  "metrics": {
+    "rating_votes": 24098,
+    "score": 4.04
+  },
+  "pages": 1256,
+  "title": "Dry",
+  "url": "https://www.goodreads.com/book/show/38355098-dry",
+  "year_published": 2018
+}

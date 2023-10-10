@@ -1,0 +1,47 @@
+{
+  "author": "Fredric Brown",
+  "id": "108",
+  "description": "The editor of a sci-fi pulp magazine is accidentally transported to a parallel universe where space travel is common, Earth is at war with creepy aliens, New York City isn't safe after dark, and his girlfriend is with someone else. Regularly appears on \"Greatest science fiction\" lists.",
+  "editions": [
+    "english",
+    "spanish"
+  ],
+  "genres": [
+    "classics",
+    "fantasy",
+    "fiction",
+    "humor",
+    "novels",
+    "pulp",
+    "science fiction",
+    "science fiction (aliens)",
+    "science fiction fantasy",
+    "speculative fiction"
+  ],
+  "inventory": [
+    {
+      "status": "on_loan",
+      "stock_id": "108_1"
+    },
+    {
+      "status": "available",
+      "stock_id": "108_2"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "108_3"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "108_4"
+    }
+  ],
+  "metrics": {
+    "rating_votes": 1060,
+    "score": 3.96
+  },
+  "pages": 1272,
+  "title": "What Mad Universe",
+  "url": "https://www.goodreads.com/book/show/439226.What_Mad_Universe",
+  "year_published": 1949
+}

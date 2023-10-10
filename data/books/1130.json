@@ -1,0 +1,39 @@
+{
+  "author": "Lex Thomas",
+  "id": "1130",
+  "description": "It was just another ordinary day at McKinley High—until a massive explosion devastated the school. When loner David Thorpe tried to help his English teacher to safety, the teacher convulsed and died right in front of him. And that was just the beginning.A year later, McKinley has descended into chaos. All the students are infected with a virus that makes them deadly to adults. The school is under military quarantine. The teachers are gone. Violent gangs have formed based on high school social cliques. Without a gang, you’re as good as dead. And David has no gang. It’s just him and his little brother, Will, against the whole school.",
+  "editions": [
+    "english",
+    "spanish"
+  ],
+  "genres": [
+    "adventure (survival)",
+    "apocalyptic (post apocalyptic)",
+    "fiction",
+    "horror",
+    "science fiction",
+    "science fiction (apocalyptic)",
+    "science fiction (dystopia)",
+    "thriller",
+    "young adult",
+    "young adult (high school)"
+  ],
+  "inventory": [
+    {
+      "status": "maintenance",
+      "stock_id": "1130_1"
+    },
+    {
+      "status": "on_loan",
+      "stock_id": "1130_2"
+    }
+  ],
+  "metrics": {
+    "rating_votes": 7534,
+    "score": 3.89
+  },
+  "pages": 920,
+  "title": "The Loners",
+  "url": "https://www.goodreads.com/book/show/12620969-the-loners",
+  "year_published": 2012
+}

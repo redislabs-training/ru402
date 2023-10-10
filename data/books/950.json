@@ -1,0 +1,59 @@
+{
+  "author": "Pip Ballantine",
+  "id": "950",
+  "description": "In Victorian England, Londoners wash up dead on Thames, drained of blood and bone. Clandestine Ministry of Peculiar Occurrences is forbidden to investigate. But Eliza Braun, with bulletproof corset, fondness for dynamite, remarkable devices, drags along timorous new partner Wellington Books, of encyclopedic brain, against Phoenix intent on enslaving Britons.",
+  "editions": [
+    "english",
+    "spanish"
+  ],
+  "genres": [
+    "adventure",
+    "fantasy",
+    "fantasy (paranormal)",
+    "fantasy (urban fantasy)",
+    "fiction",
+    "historical",
+    "historical (historical fiction)",
+    "mystery",
+    "science fiction",
+    "science fiction (steampunk)"
+  ],
+  "inventory": [
+    {
+      "status": "maintenance",
+      "stock_id": "950_1"
+    },
+    {
+      "status": "on_loan",
+      "stock_id": "950_2"
+    },
+    {
+      "status": "on_loan",
+      "stock_id": "950_3"
+    },
+    {
+      "status": "on_loan",
+      "stock_id": "950_4"
+    },
+    {
+      "status": "on_loan",
+      "stock_id": "950_5"
+    },
+    {
+      "status": "on_loan",
+      "stock_id": "950_6"
+    },
+    {
+      "status": "on_loan",
+      "stock_id": "950_7"
+    }
+  ],
+  "metrics": {
+    "rating_votes": 7456,
+    "score": 3.7
+  },
+  "pages": 581,
+  "title": "Phoenix Rising",
+  "url": "https://www.goodreads.com/book/show/9795166-phoenix-rising",
+  "year_published": 2011
+}

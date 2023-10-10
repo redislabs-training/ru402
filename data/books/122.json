@@ -1,0 +1,63 @@
+{
+  "author": "Jack Finney",
+  "id": "122",
+  "description": "About Time offers a delightful return to the world of time travel and light comedy that distinguished Jack Finney's all-time classic Time and Again. The protagonists of these twelve stories are well-meaning but at odds with their surroundings and their lives. The time to which they escape—through time travel—doesn't always fulfill their expectations in the way they had hoped, but sometimes, they can still find their dreams.",
+  "editions": [
+    "english",
+    "spanish"
+  ],
+  "genres": [
+    "anthologies",
+    "fantasy",
+    "fiction",
+    "historical (historical fiction)",
+    "humor",
+    "novels",
+    "science fiction",
+    "science fiction (time travel)",
+    "science fiction fantasy",
+    "short stories"
+  ],
+  "inventory": [
+    {
+      "status": "maintenance",
+      "stock_id": "122_1"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "122_2"
+    },
+    {
+      "status": "on_loan",
+      "stock_id": "122_3"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "122_4"
+    },
+    {
+      "status": "available",
+      "stock_id": "122_5"
+    },
+    {
+      "status": "available",
+      "stock_id": "122_6"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "122_7"
+    },
+    {
+      "status": "maintenance",
+      "stock_id": "122_8"
+    }
+  ],
+  "metrics": {
+    "rating_votes": 1369,
+    "score": 4.05
+  },
+  "pages": 1216,
+  "title": "About Time: 12 Short Stories",
+  "url": "https://www.goodreads.com/book/show/72695.About_Time",
+  "year_published": 1986
+}

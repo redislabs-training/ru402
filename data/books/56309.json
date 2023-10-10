@@ -1,0 +1,38 @@
+{
+  "author": "James Dashner",
+  "id": "56309",
+  "description": "There are alternate cover editions for this ASIN here and here.If you ain’t scared, you ain’t human. When Thomas wakes up in the lift, the only thing he can remember is his name. He’s surrounded by strangers—boys whose memories are also gone. Nice to meet ya, shank. Welcome to the Glade. Outside the towering stone walls that surround the Glade is a limitless, ever-changing maze. It’s the only way out—and no one’s ever made it through alive. Everything is going to change. Then a girl arrives. The first girl ever. And the message she delivers is terrifying. Remember. Survive. Run.",
+  "editions": [
+    "english"
+  ],
+  "genres": [
+    "adventure",
+    "apocalyptic (post apocalyptic)",
+    "audiobook",
+    "fantasy",
+    "fiction",
+    "mystery",
+    "science fiction",
+    "science fiction (dystopia)",
+    "young adult",
+    "young adult (teen)"
+  ],
+  "inventory": [
+    {
+      "status": "on_loan",
+      "stock_id": "56309_1"
+    },
+    {
+      "status": "on_loan",
+      "stock_id": "56309_2"
+    }
+  ],
+  "metrics": {
+    "rating_votes": 1105628,
+    "score": 4.03
+  },
+  "pages": 327,
+  "title": "The Maze Runner",
+  "url": "https://www.goodreads.com/book/show/6186357-the-maze-runner",
+  "year_published": 2009
+}
