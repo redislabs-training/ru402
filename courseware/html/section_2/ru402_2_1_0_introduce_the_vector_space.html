@@ -1,0 +1,66 @@
+<p>Vector Similarity Search (VSS) is a key function that can be performed between <i>pairs of vectors</i>.</p>
+
+<ul>
+    <li>It is the process of finding data points that are similar to a given query vector in a set of vectors.</li>
+    <li>Popular VSS uses include recommendation systems, image and video search, natural language processing, and anomaly detection.</li>
+    <li>For example, if you build a recommendation system, you can use VSS to find (and suggest) products that are similar to a product in which a user previously showed interest.</li>
+</ul>
+
+<p>
+Calculating the distance between vectors is a trivial operation using some math. 
+</p>
+
+<ol>
+    <li>The example defines three sentences</li>
+    <li>Calculate the vector embedding corresponding to each of the three sentences</li>
+    <li>Define the test sentence "That is a happy person" and calculate the corresponding vector embedding</li>
+    <li>Compute the distance between the embedding of the test sentence and the three vectors</li>
+</ol>
+
+
+<pre>
+import numpy as np
+from numpy.linalg import norm
+from sentence_transformers import SentenceTransformer
+
+# Define the model we want to use (it'll download itself)
+model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+
+sentences = [
+"That is a very happy person", 
+"That is a happy dog",
+"Today is a sunny day"
+]
+
+sentence = "That is a happy person"
+
+# vector embeddings created from dataset
+embeddings = model.encode(sentences)
+
+# query vector embedding
+query_embedding = model.encode(sentence)
+
+# define our distance metric
+def cosine_similarity(a, b):
+    return np.dot(a, b)/(norm(a)*norm(b))
+
+# run semantic similarity search
+print("Query: That is a happy person") 
+for e, s in zip(embeddings, sentences):
+    print(s, " -> similarity score = ", cosine_similarity(e, query_embedding))
+</pre>
+
+<p>
+Running this example returns the following output:
+</p>
+
+<pre>
+Query: That is a happy person
+That is a very happy person  -> similarity score =  0.9429151
+That is a happy dog  -> similarity score =  0.6945774
+Today is a sunny day  -> similarity score =  0.256876
+</pre>
+
+<p>
+We could have expected that the sentences "That is a happy person" and "That is a very happy person" represent the pair having the highest similarity score. In the example, we are comparing the angles between pairs of vectors in a 384-dimensional vector space using the cosine distance. The closest the angle between the two vectors to zero, the closest is the cosine to one, which indicates a higher similarity between the two sentences. 
+</p>
