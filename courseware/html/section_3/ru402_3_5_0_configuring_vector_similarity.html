@@ -1,0 +1,70 @@
+Using Redis as a Vector Database, you have several options to make at design time that will influence your data model, the correctness of the results and the overall performance of your application. The three main aspects you will evaluate in this unit are:
+
+<ul>
+    <li>
+        The data type
+    </li>
+    <li>
+        The distance
+    </li>
+    <li>
+        The indexing methods
+    </li>
+  </ul>
+
+Let's cover the main points to take into account when designing your application.
+
+<h2>Choosing the right data type</h2>
+<hr>
+
+As discussed, Redis can store and manage vectors in Hash or JSON data types. Besides the intrinsic structural differences between the Hash and the JSON, let's make some considerations.
+
+<p>
+    In the first place, the JSON data type supports the same features as the Hash data type when performing VSS. There are some slight differences, though, to take into account when working with a determined type.
+</p>
+
+<ul>
+  <li><strong>Searching</strong>
+    <ul>
+      <li>When using <strong>Hashes</strong>, storing and searching vectors requires using the binary blob format.</li>
+      <li>For <strong>JSON documents</strong>, formats used for storing and searching are asymmetric: vectors must be stored as lists rather than binary blobs (<code>model.encode(text).astype(np.float32).tolist()</code>), but to perform VSS, JSON requires the binary blob format <code>model.encode(text).astype(np.float32).tobytes()</code></li>
+    </ul>
+  </li>
+  <li><strong>Indexing</strong>. Indexing of vectors can be done against a single vector when the vector is stored in a Hash. The JSON format, instead, can store and have multiple vectors indexed</li>
+  <li><strong>Footprint</strong>. JSON has a larger memory footprint compared to the Hash</li>
+</ul>
+
+<h2>Choosing the right distance</h2>
+<hr>
+
+<p>
+    We mentioned that similarity between vectors can be measured through different methods; currently, we support three among the most popular: Euclidean distance, Internal product, and Cosine similarity.
+</p>
+
+<ul>
+  <li><strong>L2</strong>. The Euclidean distance is the default distance metric used by many algorithms, and it generally gives good results. Conceptually, it should be used whenever we are comparing observations whose features are continuous: numeric variables like height, weight, or salaries, for example, although, it should be noted that it works best with low-dimensional data and where the magnitude of the vectors is important to be measured.</li>
+  <li><strong>COSINE</strong>. Cosine similarity considers the cosine of the angle formed by two vectors (when the angle is close to 0, the cosine tends to 1, which represents the maximum similarity). The cosine similarity does not account for the magnitude of the vectors being compared. The cosine distance is complementary to cosine similarity (obtained by subtracting the value of the cosine similarity from 1). This distance is appropriate when the magnitude of the vectors is not important in the description of the unstructured data</li>
+  <li><strong>IP</strong>. The inner product looks at both the angle between the vectors and their magnitude. Note that this distance is equivalent to cosine similarity if vectors are normalized.</li>
+</ul>
+
+<p>
+    Depending on the model used to represent the unstructured data, one distance may fit better than the others.
+</p>
+
+
+<h2>Choosing the indexing method</h2>
+<hr>
+
+<p>
+    When a new vector is added to Redis, it can be indexed by one of the two indexing methods:
+</p>
+
+<h3>Flat index (FLAT)</h3>
+<p>
+    For smaller datasets, you can use the <code>FLAT</code> indexing method. This method compares the test vector to all the vectors in the index, one by one. This is a more accurate, but much slower and compute-intensive approach
+</p>
+
+<h3>Hierarchical Navigable Small World graphs (HNSW)</h3>
+<p>
+    For bigger datasets, it becomes difficult to compare the test vector to every single vector in the index, so it is adopted a probabilistic approach through the <code>HNSW</code>  algorithm. This method provides very fast search results. This approach trades some accuracy for big performance improvements.
+</p>

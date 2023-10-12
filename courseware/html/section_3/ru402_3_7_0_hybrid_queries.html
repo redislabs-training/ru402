@@ -1,0 +1,17 @@
+<p>
+    VSS can be combined with the other querying mechanisms (including VSS range queries), giving us the possibility to run <strong>hybrid queries</strong>. As an example, we can modify the query written in the previous example as follows to indicate that we want to filter by category. Using the <code>TAG</code> field specified for the <code>genre</code>:
+</p>
+
+<pre><code>
+q = Query("@genre:{pets}=>[KNN 2 @embedding $vec AS score]").return_field("score").return_field("content").dialect(2)
+</code></pre>
+
+<p>The result is returned correctly.</p>
+
+<pre><code>
+Result{1 total, docs: [Document {'id': 'doc:2', 'payload': None, 'score': '0.305422723293', 'content': 'That is a happy dog'}]}
+</code></pre>
+
+<p>
+    You can learn more about hybrid queries in the <a href="https://redis.io/docs/interact/search-and-query/advanced-concepts/vectors/#hybrid-queries">documentation</a>.
+</p>

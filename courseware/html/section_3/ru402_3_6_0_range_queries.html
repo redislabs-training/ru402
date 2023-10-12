@@ -1,0 +1,20 @@
+<p>
+    Redis supports <strong>Range Queries</strong> for VSS, a way of filtering query results by the <strong>distance</strong> between the stored vectors and a query vector, in terms of the relevant vector field distance metric. You can think of it as a geo query by radius, where we return all the points within a certain distance of a given point, except that the radius is the actual distance between the vectors. As an example, we can modify the query written in the previous example with:
+</p>
+
+<pre><code>
+q = Query("@embedding:[VECTOR_RANGE $radius $vec]=>{$YIELD_DISTANCE_AS: score}").return_field("score").return_field("content").dialect(2)
+res = r.ft("doc_idx").search(q, query_params={"vec": model.encode(sentence).astype(np.float32).tobytes(), "radius":0.1})
+</code></pre>
+
+<p>
+    This time, rather than specifying that we want the two best matches, we specify that we would rather have all the sentences with a distance score under <code>0.1</code>. Executing the example with the modification produces:
+</p>
+
+<pre><code>
+Result{1 total, docs: [Document {'id': 'doc:1', 'payload': None, 'score': '0.0570845603943', 'content': 'That is a very happy person'}]}
+</code></pre>
+
+<p>
+    Which is the expected result. You can learn more about range queries in the <a href="https://redis.io/docs/interact/search-and-query/advanced-concepts/vectors/#range-query">documentation</a>.
+</p>

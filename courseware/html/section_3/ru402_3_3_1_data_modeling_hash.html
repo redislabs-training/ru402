@@ -1,0 +1,40 @@
+<p>The vector embedding we have just generated can be stored in a Hash as a <strong>binary blob</strong> within the document itself, together with the rest of fields. This means that if our document is structured as follows:</p>
+
+<pre><code>{
+    "content": "Understanding vector similarity is easy, but understanding all the mathematics behind a vector is not!",
+    "genre": "technical"
+}
+</code></pre>
+
+<p>then we will include the vector embedding in the document itself:</p>
+
+<pre><code>{
+    "content": "Understanding vector similarity is easy, but understanding all the mathematics behind a vector is not!",
+    "genre": "technical",
+    "embedding": "..."
+}
+</code></pre>
+
+<p>In the following Python code sample, the utility <code>astype</code> from the <a href="https://numpy.org/">numPy</a> library for scientific computing is used: it casts the vector to the desired binary blob format, required by Redis for indexing purposes.</p>
+
+<pre><code>blob = embedding.astype(np.float32).tobytes()
+r.hset('doc:1', mapping = {'embedding': blob,
+                           'genre': 'technical',
+                           'content': text})
+</code></pre>
+
+<p>Hash documents can be indexed as usual with <code>FT.CREATE</code> using the <code>VECTOR</code> index type. We can also index other fields in the same index definition, like the <code>TEXT</code> and <code>TAG</code> fields in the following instructions. Indexing several fields in the same index enables hybrid searches, which we'll show later.</p>
+
+<pre><code>FT.CREATE doc_idx ON HASH PREFIX 1 doc: SCHEMA content AS content TEXT genre AS genre TAG embedding VECTOR HNSW 6 TYPE FLOAT32 DIM 384 DISTANCE_METRIC COSINE
+</code></pre>
+
+<p>Note how we have specified:</p>
+
+<ul>
+  <li>the dimension of the vectors, set by the specific embedding model <a href="https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2">all-MiniLM-L6-v2</a></li>
+  <li>the indexing method, <code>HNSW</code></li>
+  <li>the vector type, <code>FLOAT32</code> in the example</li>
+  <li>the distance, <code>COSINE</code> in the example</li>
+</ul>
+
+<p>Refer to the <a href="https://redis.io/docs/interact/search-and-query/advanced-concepts/vectors/">documentation</a> to learn more about these options.</p>
