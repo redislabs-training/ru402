@@ -1,0 +1,144 @@
+
+<p>We've provided you with a small example program that uses the <a href="https://github.com/redis/node-redis" target="_blank" class="page-link">node-redis</a> client for Node.js to store and manipulate data in Redis.</p>
+<p>The code is located in the <span class="code"><a href="https://github.com/redislabs-training/ru402/tree/main/src/nodejs" target="_blank" class="page-link">src/nodejs/</a></span> folder in the course GitHub repository.  You should have already cloned this repository to your machine as part of the initial course setup step.</p>
+<p>Follow the instructions in the <a href="https://github.com/redislabs-training/ru402/blob/main/src/nodejs/README.md" target="_blank" class="page-link">README.md</a> file if you'd like to run the code in your local environment.</p>
+
+<h2>Code Walkthrough</h2>
+<hr>
+
+The example is a JavaScript version of the simple Vector Similarity Search example already introduced along the course, where we:
+
+<ol>
+    <li>Instantiate the proper embedding model</li>
+    <li>Create the index with the desired fields</li>
+    <li>Create vectors from the three sentences using the model, and store them</li>
+    <li>Consider a sample sentence, calculate the embedding, and perform VSS</li>
+</ol>
+
+<h3>Embedding model creation</h3>
+<hr>
+
+The embedding model we will be using in this example proceeds from the <a href="https://www.npmjs.com/package/@xenova/transformers">Transformers.js</a>. The dependencies can be added to the project as follows:
+
+<pre>
+npm install redis
+npm install @xenova/transformers
+</pre>
+
+The chosen model is <a href="https://huggingface.co/sentence-transformers/all-distilroberta-v1">all-distilroberta-v1</a>, which maps sentences and paragraphs to a 768 dimensional dense vector space.
+
+<pre>
+async function generateSentenceEmbeddings(sentence) {
+    let modelName = 'Xenova/all-distilroberta-v1';
+    let pipe = await transformers.pipeline('feature-extraction', modelName);
+
+    let vectorOutput = await pipe(sentence, {
+        pooling: 'mean',
+        normalize: true,
+    });
+
+    const embedding = Object.values(vectorOutput?.data);
+    return embedding;
+}
+</pre>
+
+<h3>Index creation</h3>
+<hr>
+
+In this example, we are modeling simple documents having this structure:
+
+<pre><code>{
+    "content": "This is a content",
+    "genre": "just-a-genre",
+    "embedding": "..."
+}
+</code></pre>
+
+Provided there is no nested information in our document, the Hash data type fulfills the purpose. In addition to creating an index for the vector embedding, we will create also a full-text index of type <code>TEXT</code> for the <code>content</code> field and an index of type <code>TAG</code> for the <code>genre</code> field. The relevant options for the <code>VECTOR</code> index type are also specified, such as a Euclidean distance, and the vector dimension. 
+
+<pre>
+async function createIndex() {
+    const schema = {
+        'content': {
+            type: SchemaFieldTypes.TEXT,
+            sortable: false
+        },
+        'genre': {
+            type: SchemaFieldTypes.TAG,
+            sortable: false
+        },
+        'embedding': {
+            type: SchemaFieldTypes.VECTOR,
+            TYPE: 'FLOAT32',
+            ALGORITHM: VectorAlgorithms.HNSW,
+            DIM: 768,
+            DISTANCE_METRIC: 'L2',
+            INITIAL_CAP: 3,
+            AS: 'embedding',
+        }
+    }
+
+    try {
+        const client = await getNodeRedisClient();
+        await client.ft.create('vector_idx', schema, {
+        ON: 'HASH',
+        PREFIX: 'doc:'
+        });
+    }
+    catch (e) {
+        if (e.message === 'Index already exists') {
+            console.log('Index exists already, skipped creation.');
+        } else {
+            console.error(e);
+            process.exit(1);
+        }
+    }
+}
+</pre>
+
+
+<h3>Vector embedding generation</h3>
+<hr>
+
+Vector embeddings can be created using the model created before. Note that embeddings are stored in Hashes using the binary blob format, used in the example.
+
+<pre>
+const sentence1 = { "content":"That is a very happy person", 
+                    "genre":"persons", 
+                    "embedding":float32Buffer(await generateSentenceEmbeddings("That is a very happy person"))}
+
+client.hSet('doc:1', sentence1);
+</pre>
+
+<blockquote>
+The function <code>float32Buffer</code>, defined in the example, converts the array of floats to a binary blob.
+</blockquote>
+
+
+<h3>Perform the search</h3>
+<hr>
+
+Finally, considering the test sentence "That is a happy person", we perform the KNN search and return the score of the search and the content of the best matches. In this example we are returning the three documents, so you can analyze the score.
+
+<pre>
+async function vss() {
+    const client = await getNodeRedisClient();
+
+    const similar = await client.ft.search(
+        'vector_idx',
+        '*=>[KNN 3 @embedding $B AS score]',{
+            "PARAMS": 
+                {
+                    B: float32Buffer(await generateSentenceEmbeddings("That is a happy person")),
+                },
+            "RETURN": ['score', 'content'],
+            "DIALECT": "2"
+        },
+    );
+    
+    console.log(`VSS results found: ${similar.total}.`);
+    for (const doc of similar.documents) {
+        console.log(`${doc.id}: ${doc.value.content} with score ${doc.value.score}`);
+    }
+}
+</pre>
