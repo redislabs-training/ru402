@@ -2,13 +2,13 @@ import {VectorAlgorithms, createClient, SchemaFieldTypes} from 'redis';
 import * as transformers from '@xenova/transformers';
 
 
-const REDIS_URI =  process.env['REDIS_URI'] || 'redis://localhost:6379';
+const REDIS_URL =  process.env['REDIS_URL'] || 'redis://localhost:6379';
 let nodeRedisClient = null;
 
 
 const getNodeRedisClient = async () => {
   if (!nodeRedisClient) {
-    nodeRedisClient = createClient({ url: REDIS_URI });
+    nodeRedisClient = createClient({ url: REDIS_URL });
     await nodeRedisClient.connect();
   }
   return nodeRedisClient;
