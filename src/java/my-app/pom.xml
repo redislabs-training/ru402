@@ -22,7 +22,17 @@
     <dependency>
         <groupId>org.deeplearning4j</groupId>
         <artifactId>deeplearning4j-core</artifactId>
-        <version>1.0.0-beta7</version> <!-- Use the version you prefer -->
+        <version>1.0.0-beta7</version>
+    </dependency>
+    <dependency>
+        <groupId>ai.djl</groupId>
+        <artifactId>api</artifactId>
+        <version>0.24.0</version>
+    </dependency>
+    <dependency>
+      <groupId>ai.djl.huggingface</groupId>
+      <artifactId>tokenizers</artifactId>
+      <version>0.24.0</version>
     </dependency>
   </dependencies>
 </project>
