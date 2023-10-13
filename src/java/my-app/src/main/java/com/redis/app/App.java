@@ -44,7 +44,7 @@ public class App {
 
     public static void main(String[] args) {
         // Connect to Redis
-        UnifiedJedis unifiedjedis = new UnifiedJedis(new HostAndPort("localhost", 6379));
+        UnifiedJedis unifiedjedis = new UnifiedJedis(System.getenv().getOrDefault("REDIS_URL", "redis://localhost:6379"));
 
         // Create the index
         IndexDefinition definition = new IndexDefinition().setPrefixes(new String[]{"doc:"});
