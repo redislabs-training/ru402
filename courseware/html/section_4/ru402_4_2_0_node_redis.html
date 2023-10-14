@@ -18,7 +18,7 @@ The example is a JavaScript version of the simple Vector Similarity Search examp
 <h3>Embedding model creation</h3>
 <hr>
 
-The embedding model we will be using in this example proceeds from the <a href="https://www.npmjs.com/package/@xenova/transformers">Transformers.js</a>. The dependencies can be added to the project as follows:
+The embedding model we will be using in this example proceeds from the <a href="https://www.npmjs.com/package/@xenova/transformers">Transformers.js</a> library. The dependencies can be added to the project as follows:
 
 <pre>
 npm install redis
@@ -54,7 +54,7 @@ In this example, we are modeling simple documents having this structure:
 }
 </code></pre>
 
-Provided there is no nested information in our document, the Hash data type fulfills the purpose. In addition to creating an index for the vector embedding, we will create also a full-text index of type <code>TEXT</code> for the <code>content</code> field and an index of type <code>TAG</code> for the <code>genre</code> field. The relevant options for the <code>VECTOR</code> index type are also specified, such as a Euclidean distance, and the vector dimension. 
+Provided there is no nested information in our document, the Hash data type fulfills the purpose. In addition to creating an index for the vector embedding, we will create also a full-text index of type <code>TEXT</code> for the <code>content</code> field and an index of type <code>TAG</code> for the <code>genre</code> field. The relevant options for the <code>VECTOR</code> index type are also specified, such as a Euclidean distance, and the vector dimension. You can learn more about the rest of the option from the <a href="https://redis.io/docs/interact/search-and-query/advanced-concepts/vectors/">documentation</a>.
 
 <pre>
 async function createIndex() {
