@@ -1,0 +1,14 @@
+index:
+    name: vector_idx
+    prefix: doc
+
+fields:
+    text:
+        - name: content
+    tag:
+        - name: genre
+    vector:
+        - name: embedding
+          dims: 384
+          distance_metric: l2
+          algorithm: HNSW
