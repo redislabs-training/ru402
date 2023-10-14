@@ -41,7 +41,7 @@ Now you can run the example with:
 node App.js 
 ```
 
-When the execution completes, the following output is printed:
+The example will store three sentences and test one sentence for similarity. The result is:
 
 ```text
 VSS results found: 3.

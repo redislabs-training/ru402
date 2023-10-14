@@ -28,7 +28,7 @@ And execute using:
 mvn exec:java -Dexec.mainClass=com.redis.app.App
 ```
 
-When the execution completes, the following output is printed:
+The example will store three sentences and test one sentence for similarity. The result is:
 
 ```text
 [id:doc:1, score: 1.0, properties:[score=9301635, content=That is a very happy person], id:doc:2, score: 1.0, properties:[score=1411344, content=That is a happy dog], id:doc:3, score: 1.0, properties:[score=67178800, content=Today is a sunny day]]

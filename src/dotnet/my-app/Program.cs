@@ -13,19 +13,18 @@ using Microsoft.ML.Transforms.Text;
 using System.Text.Json;
 
 
-namespace Samples.Dynamic
+namespace Redis.SemanticSearch
 {
-    public static class ApplyWordEmbedding
+    public static class VssExample
     {
-
         static void Main() {
             CreateIndex();
-            Example();
+            ModelSentences();
             TestSentence();
         }
 
         private static void CreateIndex(){
-            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("localhost");
+            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("localhost:6379");
             IDatabase db = redis.GetDatabase();
 
             var schema = new Schema()
@@ -46,7 +45,6 @@ namespace Samples.Dynamic
                 new FTCreateParams().On(IndexDataType.HASH).Prefix("doc:"),
                 schema);
         }
-
         private static byte[] GetEmbedding(PredictionEngine<TextData, TransformedTextData> model, string sentence)
         {
             // Call the prediction API to convert the text into embedding vector.
@@ -96,7 +94,7 @@ namespace Samples.Dynamic
             return predictionEngine;
         }
         
-        public static void Example()
+        public static void ModelSentences()
         {
             ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("localhost");
             IDatabase db = redis.GetDatabase();
@@ -135,15 +133,16 @@ namespace Samples.Dynamic
             var res = ft.Search("vector_idx",
                         new Query("*=>[KNN 3 @embedding $query_vec AS score]")
                         .AddParam("query_vec", GetEmbedding(predictionEngine, "That is a happy person"))
+                        .ReturnFields(new FieldName("content", "content"), new FieldName("score", "score"))
                         .SetSortBy("score")
                         .Dialect(2));
 
             foreach (var doc in res.Documents) {
+                Console.Write($"id: {doc.Id}, ");
                 foreach (var item in doc.GetProperties()) {
-                    if (item.Key == "score") {
-                        Console.WriteLine($"id: {doc.Id}, score: {item.Value}");
-                    }
+                    Console.Write($" {item.Value}");
                 }
+                Console.WriteLine();
             }
         }
 
