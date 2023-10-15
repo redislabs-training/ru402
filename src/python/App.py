@@ -1,11 +1,12 @@
 from redisvl.index import SearchIndex
 from redisvl.query import VectorQuery
 from redisvl.vectorize.text import HFTextVectorizer
+import os
 
 
 # initialize the index and connect to Redis
 index = SearchIndex.from_yaml("schema.yaml")
-index.connect("redis://localhost:6379")
+index.connect(os.environ.get('REDIS_URL', "redis://localhost:6379"))
 
 # initialize the embedder
 hf = HFTextVectorizer(model="sentence-transformers/all-MiniLM-L6-v2")

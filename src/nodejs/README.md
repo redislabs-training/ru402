@@ -16,6 +16,8 @@ Ensure that your Redis Stack instance is running, and that you have set the `RED
 export REDIS_URL=redis://user:password@host:port
 ```
 
+> By default, the connection is attemped to a localhost Redis Stack instance on port `6379`
+
 You can now install the modules required to run the example. From the folder where the source `App.js` is located, run:
 
 ```

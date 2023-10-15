@@ -1,0 +1,108 @@
+
+<p>Across the introduction to VSS, we have provided examples using the <a href="https://redis-py.readthedocs.io/en/stable/">redis-py</a> standard client library for Python, supported by Redis. In this unit, we will provide you with a small example program that uses the <a href="https://github.com/RedisVentures/redisvl" target="_blank" class="page-link">RedisVL</a> client for Python to store and manipulate data in Redis. RedisVL is experimental and the API may be subject to change. However, for prototyping purposes it may accelerate the development, as it abstracts several operations, to model, store and index unstructured data.</p>
+<p>The code is located in the <span class="code"><a href="https://github.com/redislabs-training/ru402/tree/main/src/python" target="_blank" class="page-link">src/python/</a></span> folder in the course GitHub repository.  You should have already cloned this repository to your machine as part of the initial course setup step.</p>
+<p>Follow the instructions in the <a href="https://github.com/redislabs-training/ru402/blob/main/src/python/README.md" target="_blank" class="page-link">README.md</a> file if you'd like to run the code in your local environment.</p>
+
+<h2>Code Walkthrough</h2>
+<hr>
+
+The example is a Java version of the simple Vector Similarity Search example already introduced along the course, where we:
+
+<ol>
+    <li>Instantiate the proper embedding model</li>
+    <li>Create the index with the desired fields</li>
+    <li>Create vectors from the three sentences using the model, and store them</li>
+    <li>Consider a sample sentence, calculate the embedding, and perform VSS</li>
+</ol>
+
+<h3>Embedding model creation</h3>
+<hr>
+
+The embedding model we will be using in this example proceeds from <a href="https://huggingface.co/">HuggingFace</a>. Installing the dependency is done with:
+
+<textarea rows="2" cols="40" style="margin: 10px 0;border:none;">
+pip install redisvl
+pip install sentence_transformers
+</textarea>
+<br>
+
+The chosen model is <a href="https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2">all-MiniLM-L6-v2</a>, which maps sentences and paragraphs to a 384 dimensional dense vector space.
+
+<pre>
+hf = HFTextVectorizer(model="sentence-transformers/all-MiniLM-L6-v2")
+</pre>
+
+<h3>Index creation</h3>
+<hr>
+
+In this example, we are modeling simple documents having this structure:
+
+<pre><code>{
+    "content": "This is a content",
+    "genre": "just-a-genre",
+    "embedding": "..."
+}
+</code></pre>
+
+Provided there is no nested information in our document, the Hash data type fulfills the purpose. In addition to creating an index for the vector embedding, we will create also a full-text index of type <code>TEXT</code> for the <code>content</code> field and an index of type <code>TAG</code> for the <code>genre</code> field. The relevant options for the <code>VECTOR</code> index type are also specified, such as a Euclidean distance, and the vector dimension. You can learn more about the rest of the option from the <a href="https://redis.io/docs/interact/search-and-query/advanced-concepts/vectors/">documentation</a>.
+
+The index is defined by the <code>schema.yaml</code> file.
+
+<pre>
+index:
+    name: vector_idx
+    prefix: doc
+
+fields:
+    text:
+        - name: content
+    tag:
+        - name: genre
+    vector:
+        - name: embedding
+          dims: 384
+          distance_metric: l2
+          algorithm: HNSW
+</pre>
+
+Index creation follows the import of the schema:
+
+<pre>
+index = SearchIndex.from_yaml("schema.yaml")
+</pre>
+
+<h3>Vector embedding generation</h3>
+<hr>
+
+Vector embeddings can be created using the instantiated model. Note that embeddings are stored in Hashes using the binary blob format, used in the example.
+
+<pre>
+data = [
+    {'content': 'That is a very happy person', 'genre': 'persons', 'embedding': hf.embed('That is a very happy person', as_buffer=True)},
+    {'content': 'That is a happy dog', 'genre': 'pets', 'embedding': hf.embed('That is a happy dog', as_buffer=True)},
+    {'content': 'Today is a sunny day', 'genre': 'weather', 'embedding': hf.embed('Today is a sunny day', as_buffer=True)}
+]
+
+index.load(data)
+</pre>
+
+<blockquote>
+Remember that JSON must store vector embeddings as arrays of floats. Hence, notice the flag to be used for JSON documents: <code>as_buffer=False</code>
+</blockquote>
+
+
+<h3>Perform the search</h3>
+<hr>
+
+Finally, considering the test sentence "That is a happy person", we perform the KNN search and return the score of the search and the content of the best matches. In this example we are returning the three documents, so you can analyze the score, returned by the field <code>vector_distance</code>.
+
+<pre>
+query = VectorQuery(
+    vector=hf.embed('That is a happy person'),
+    vector_field_name="embedding",
+    return_fields=["content"],
+    num_results=3,
+)
+
+results = index.query(query)
+</pre>

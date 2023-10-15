@@ -16,6 +16,8 @@ Ensure that your Redis Stack instance is running, and that you have set the `RED
 export REDIS_URL=redis://user:password@host:port
 ```
 
+> By default, the connection is attemped to a localhost Redis Stack instance on port `6379`
+
 The example is provided as a Maven project, which you can compile using
 
 ```bash
