@@ -1,0 +1,6 @@
+numpy==1.25.2
+openai==0.28.0
+redis==5.0.0
+sentence_transformers==2.2.2
+tiktoken==0.5.1
+jupyter==1.0.0
