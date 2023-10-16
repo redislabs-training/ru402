@@ -1,6 +1,29 @@
+<p>
+    Current LLM services do not store any conversation history. So, conversations are stateless, which is the same. This means that once a question is asked and the answer generated, we would not be able to refer to previous passages in the conversation. Keeping the context of the conversation in memory, and providing the LLM with the entire conversation (as a list of pairs question + response) together with the new question, is responsibility of the client application.
+</p>
 
+> Review the body of the OpenAI <a href="https://platform.openai.com/docs/api-reference/chat">chat completion API</a>, which accepts <code>messages</code>: the list of messages comprising the ongoing conversation.
 
+However, sending back to the LLM the entire conversation may not be convenient for two main reasons.
+
+<p>
+    In the first place, we should filter out <b>irrelevant interactions</b> from the current conversation when these do not relate to the last question. So, in practice, imagine a conversation about food interrupted by a few questions about coding, and then additional questions about the former food context. Storing all the questions and responses and their corresponding vector embeddings in the user's session, enables VSS to find those interactions that are semantically similar to the last question. Using this method, we can pick the relevant portion of the conversation.
+</p>
 
 <div align="center">
     <img width="600px" alt="Retrieval Augmented Generation with Redis" src="../../images/section_5/ru402_5_3_1_conversational_ai_relevant_context.png"/>
 </div>
+
+<p>
+    The second reason which motivates smart conversation histories is <b>cost reduction</b>. LLM-as-a-service models charge the user based on the number of tokens in the question and the answer. Which means, the longer the context, the more expensive the LLM service will be.
+</p>
+
+<p>The idea behind the <b>LLM Conversation Memory</b> is to improve the model quality and personalization through an adaptive memory.
+<ul>
+    <li>Persist all conversation history (memories) as embeddings in a vector database.</li>
+    <li>A conversational agent checks for relevant memories to aid or personalize the LLM behavior.</li>
+    <li>Allows users to change topics without misunderstandings seamlessly.</li>
+</ul>
+</p>
+
+
