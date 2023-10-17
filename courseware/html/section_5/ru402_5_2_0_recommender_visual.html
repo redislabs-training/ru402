@@ -27,3 +27,30 @@ size is 2622
 
 https://github.com/serengil/deepface
 Deepface is a lightweight face recognition and facial attribute analysis
+
+
+<h2>Running the Jupyter example</h2>
+<hr>
+
+We have provided you with a Jupyter notebook that includes the entire example. Follow this procedure to create and activate your Python virtual environment:
+
+<pre>
+python -m venv vssvenv
+source vssvenv/bin/activate
+</pre>
+
+Once done, install the required modules defined by the <code>requirements.txt</code> requirements file, available under <a href="https://github.com/redislabs-training/ru402/tree/main/src/jupyter">/src/jupyter</a>
+
+<pre>
+  pip install -r requirements.txt
+</pre>
+
+Ensure that your Redis Stack instance is running and complete the configuration of the environment, by setting the environment variable that configure your Redis instance (default is <code>localhost</code> on port 6379). 
+
+<code>export REDIS_URL=redis://user:password@host:port</code>
+
+Now you can start the notebook, execute all the cells, and check the recognition rate presented once all the tests are performed.
+
+<pre>
+jupyter notebook faces.ipynb
+</pre>

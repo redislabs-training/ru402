@@ -1,16 +1,16 @@
 <h2>Setting up a RAG Chatbot</h2>
 
-<p>Prototyping an ML-powered chatbot is not an impossible mission. The many frameworks and libraries available, together with the simplicity of getting an API token from the chosen LLM service provider, can assist you in setting up a proof-of-concept in a few hours and lines of code. Sticking to the three phases mentioned earlier (preparation, generation and retrieval), let's proceed to create a chatbot assistant, a <b>movie expert</b> you can get recommendations from and ask for specific movies.</p>
+<p>Prototyping an ML-powered chatbot is not an impossible mission. The many frameworks and libraries available, together with the simplicity of getting an API token from the chosen LLM service provider, can assist you in setting up a proof-of-concept in a few hours and lines of code. Sticking to the three phases mentioned earlier (preparation, generation, and retrieval), let's proceed to create a chatbot assistant, a <b>movie expert</b> you can consult to get recommendations from and ask for specific movies.</p>
 
 <blockquote>
-    If you would like to run the example first, jump to the bottom of this article to learn how to do so.
+    If you want to run the example first, jump to the bottom of this article to learn how to do so.
 </blockquote>
 
 
 <h2>Preparation</h2>
 <hr>
 
-<p>Imagine a movie expert who may answer questions or recommend movies based on criteria (genre, your favorite cast, or rating). A smart, automated chatbot will be trained on a corpus of popular films, which for this example, we have downloaded from Kaggle: the <a href="https://www.kaggle.com/datasets/ashpalsingh1525/imdb-movies-dataset">IMDB movies dataset</a>, with more than 10,000 movies and plenty of relevant information. An entry in the dataset stores the following information:</p>
+<p>Imagine a movie expert who may answer questions or recommend movies based on criteria (genre, your favorite cast, or rating). A smart, automated chatbot will be trained on a corpus of popular films, which, for this example, we have downloaded from Kaggle: the <a href="https://www.kaggle.com/datasets/ashpalsingh1525/imdb-movies-dataset">IMDB movies dataset</a>, with more than 10,000 movies and plenty of relevant information. An entry in the dataset stores the following information:</p>
 
 <pre>
 {
@@ -41,17 +41,17 @@
 <p>As mentioned, to enable context retrieval, we will capture the semantics of the data using an embedding model and we will store the embedding vector in the database, which will perform indexing using the desired method (<code>FLAT</code> or <code>HNSW</code>), distance (<code>L2</code>, <code>IP</code> or <code>COSINE</code>) and the required vector dimension. In particular, the index definition depends on the dimension of the vector specified by <code>DIM</code>, which is set by the chosen embedding model. The chosen embedding model we will use along this example is the open-source <code>all-MiniLM-L6-v2</code> sentence transformer, which converts the provided paragraphs to a <code>384</code> dimensional dense vector space.</p>
 
 <blockquote>
-<p>Note that embedding models support the conversion of texts up to a certain size. The chosen model warns that "input text longer than 256 word pieces is truncated". This is not an issue for our movies dataset because we expect to convert paragraphs whose length is shorter than the limit. However, setting up a text chunking strategy to map a document to multiple vector embeddings is needed for longer texts or even entire books.</p>
+<p>Note that embedding models support the conversion of texts up to a certain size. The chosen model warns that "input text longer than 256-word pieces is truncated". This is not an issue for our movie dataset because we expect to convert paragraphs whose length is shorter than the limit. However, a text chunking strategy to map a document to multiple vector embeddings is needed for longer texts or even entire books.</p>
 </blockquote>
 
-<p>Now we can parse the CSV dataset and import it in JSON format into Redis so that we would read a movie entry with:</p>
+<p>Now we can parse the CSV dataset and import it in JSON format into Redis so that we can read a movie entry with:</p>
 
 <pre>
 JSON.GET moviebot:movie:2 $.names $.overview
 {"$.overview":["While working underground to fix a water main, Brooklyn plumbers—and brothers—Mario and Luigi are transported down a mysterious pipe and wander into a magical new world. But when the brothers are separated, Mario embarks on an epic quest to find Luigi."],"$.names":["The Super Mario Bros. Movie"]}
 </pre>
 
-<p>We can read any nested entry or multiple entries in JSON documents stored in Redis Enterprise using the <a href="https://redis.io/docs/data-types/json/path/">JSONPath</a> syntax. However, we cannot perform searches without an index. So, we will proceed to create an index for this dataset, define the schema aligned to the data structure, and specify the embedding model and distance metric to be used for semantic search with VSS as long as the vector dimension set by the chosen embedding model, <code>384</code> in this case. A possible index definition could be:</p>
+<p>We can read any nested entry or multiple entries in JSON documents stored in Redis Enterprise using the <a href="https://redis.io/docs/data-types/json/path/">JSONPath</a> syntax. However, we need an index to perform searches. So, we will proceed to create an index for this dataset, define the schema aligned to the data structure, and specify the embedding model and distance metric to be used for semantic search with VSS as long as the vector dimension set by the chosen embedding model, <code>384</code> in this case. A possible index definition could be:</p>
 
 <pre>
 FT.CREATE movie_idx ON JSON PREFIX 1 moviebot:movie: SCHEMA $.crew AS crew TEXT $.overview AS overview TEXT $.genre AS genre TAG SEPARATOR , $.names AS names TAG SEPARATOR , $.overview_embedding AS embedding VECTOR HNSW 6 TYPE FLOAT32 DIM 384 DISTANCE_METRIC COSINE
@@ -205,7 +205,7 @@ except openai.error.OpenAIError as e:
 <h2>Running the Jupyter example</h2>
 <hr>
 
-We have provided you with a Jupyter notebook that includes the entire example and opens an input form to chat with the Generative AI right within the notebook itself. Follow this procedure to create and activate your Python virtual environment:
+We have provided you with a Jupyter notebook that includes the entire example and opens an input form to chat with the Generative AI within the notebook. Follow this procedure to create and activate your Python virtual environment:
 
 <pre>
 python -m venv vssvenv
@@ -218,17 +218,17 @@ Once done, install the required modules defined by the <code>requirements.txt</c
 pip install -r requirements.txt
 </pre>
 
-Ensure that your Redis Stack instance is running and complete the configuration of the environment, by setting the two environment variables that configure your Redis instance (default is <code>localhost</code> on port 6379) and your <a href="https://platform.openai.com/docs/quickstart/account-setup">OpenAI token</a>: the chatbot leverages the OpenAI ChatGPT ChatCompletion API. 
+Ensure that your Redis Stack instance is running and complete the configuration of the environment by setting the two environment variables that configure your Redis instance (default is <code>localhost</code> on port 6379) and your <a href="https://platform.openai.com/docs/quickstart/account-setup">OpenAI token</a>: the chatbot leverages the OpenAI ChatGPT ChatCompletion API. 
 
 <ul>
 <li><code>export REDIS_URL=redis://user:password@host:port</code></li>
 <li><code>export OPENAI_API_KEY="your-openai-token"</code></li>
 </ul>
 
-Now you can start the notebook and execute all the cells.
+Now, you can start the notebook and execute all the cells.
 
 <pre>
 jupyter notebook moviebot.ipynb
 </pre>
 
-This will open an input field, type your question (e.g. <i>Recommend three science fiction movies</i>) and check the result!
+The execution of the noteebook will open an input field. Type your question (e.g., <i>Recommend three science fiction movies</i>) and check the result!

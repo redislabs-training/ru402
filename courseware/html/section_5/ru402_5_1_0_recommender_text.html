@@ -3,6 +3,10 @@
 </p>
 <p>Let's consider the following example.</p>
 
+<blockquote>
+  If you want to run the example first, jump to the bottom of this article to learn how to do so.
+</blockquote>
+
 <h2>Writing a recommender system</h2>
 <hr>
 
@@ -115,4 +119,31 @@ Computing this VSS range search returns similar results.
 Result{1486 total, docs: [Document {'id': 'book:3008', 'payload': None, 'title': 'Wayward'}, Document {'id': 'book:2706', 'payload': None, 'title': 'Before the Devil Breaks You'}, Document {'id': 'book:23187', 'payload': None, 'title': 'Neverwhere'}, Document {'id': 'book:942', 'payload': None, 'title': 'The Dead'}, Document {'id': 'book:519', 'payload': None, 'title': 'The Last Days of Magic'}]}
 
 Result{1486 total, docs: [Document {'id': 'book:15', 'payload': None, 'title': 'Transformers Volume 1: For All Mankind'}, Document {'id': 'book:3', 'payload': None, 'title': 'Transformers: All Fall Down'}, Document {'id': 'book:110', 'payload': None, 'title': 'Transformers: Exodus: The Official History of the War for Cybertron (Transformers'}, Document {'id': 'book:2', 'payload': None, 'title': 'Transformers Generation One, Vol. 1'}, document {'id': 'book:37', 'payload': None, 'title': 'How to Build a Robot Army: Tips on Defending Planet Earth Against Alien Invaders, Ninjas, and Zombies'}]}
+</pre>
+
+
+<h2>Running the Jupyter example</h2>
+<hr>
+
+We have provided you with a Jupyter notebook that includes the entire example. Follow this procedure to create and activate your Python virtual environment:
+
+<pre>
+python -m venv vssvenv
+source vssvenv/bin/activate
+</pre>
+
+Once done, install the required modules defined by the <code>requirements.txt</code> requirements file, available under <a href="https://github.com/redislabs-training/ru402/tree/main/src/jupyter">/src/jupyter</a>
+
+<pre>
+  pip install -r requirements.txt
+</pre>
+
+Ensure that your Redis Stack instance is running and complete the configuration of the environment by setting the environment variable that configures your Redis instance (default is <code>localhost</code> on port 6379). 
+
+<code>export REDIS_URL=redis://user:password@host:port</code>
+
+Now, you can start the notebook, execute all the cells, and check the results.
+
+<pre>
+jupyter notebook books.ipynb
 </pre>
