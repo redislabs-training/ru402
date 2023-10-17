@@ -1,5 +1,5 @@
 <p>
-    All the Redis database flavors can store, index, and search vectors. This means that you can work with vectors using the <a href="https://redis.io/docs/about/about-stack/">Redis Stack</a> distribution in your development environment and also for functional testing. Redis Enterprise and Redis Enterprise Cloud are built upon the Redis Stack capabilities, but in addition, they offer a robust set of features to work efficiently with vectors at scale. 
+    All the Redis database flavors can store, index, and search vectors. This means that you can work with vectors using the <a href="https://redis.io/docs/about/about-stack/">Redis Stack</a> distribution in your development environment and also for functional testing. Redis Enterprise and Redis Enterprise Cloud are built upon the Redis Stack capabilities, but they also offer a robust set of features to work efficiently with vectors at scale. 
 </p>
 
 <div align="center">
@@ -7,15 +7,17 @@
 </div>
 
 <p>
-In the first place, it is important to highlight that before the native support to vectors introduced in Redis Stack Server 6.2.2-v1 in the year 2022, vectors would be stored in Redis as a string, so serializing the vector and storing it in the desired data structure. An example using the String:
+    First, it is important to highlight that before the native support for vectors was introduced in Redis Stack Server 6.2.2-v1 in 2022, vectors would be stored in Redis as a string, so serializing the vector and storing it in the desired data structure. An example using the String:
+</p>
 
 <pre><code>
 SET vec "0.00555776,0.06124274,-0.05503812,-0.08395513,-0.09052192,-0.01091553,-0.06539601,0.01099653,-0.07732834,0.0536432"
 </code></pre>
 
-Redis can store any arbitrary object once serialization and deserialization routines are available, a vector is just another object that can be stored by Redis. However, Redis has no awareness of the stored object and did not offer any feature to search through the space of vectors.
+<p>
+    Redis can store any arbitrary object once serialization and deserialization routines are available. A vector is just another object that Redis can store when serialized to the String type. However, Redis has no awareness of the intrinsic nature of the stored object and does not offer any feature to search through the space of vectors.
 </p>
 
 <p>
-    Since Redis Stack Server 6.2.2-v1, vectors can be stored as Hash or JSON documents, providing flexibility in how data is structured and accessed. Multiple indexing methods are supported, including <code>FLAT</code> and <code>HNSW</code>, enabling users to choose the most suitable approach for their specific use cases. Users can privilege precision over speed with the <code>FLAT</code> method, or ensure high throughput with a little compromise on precision using <code>HNSW</code>. Additionally, Redis offers support for various distance metrics such as <code>L2</code>, <code>IP</code>, and <code>COSINE</code>, further enhancing the precision and efficiency of vector searches for specific types of embeddings. With these features, Redis becomes a flexible solution for businesses seeking to harness the power of vector data in diverse applications, from recommendation engines to similarity search tasks.
+    Since Redis Stack Server 6.2.2-v1, vectors can be stored as Hash or JSON documents, providing flexibility in how data is structured and accessed. Multiple indexing methods are supported, including <code>FLAT</code> and <code>HNSW</code>, enabling users to choose the most suitable approach for their specific use cases. Users can privilege precision over speed with the <code>FLAT</code> method or ensure high throughput with a little compromise on accuracy using <code>HNSW</code>. Additionally, Redis offers support for various distance metrics such as <code>L2</code>, <code>IP</code>, and <code>COSINE</code>, further enhancing the precision and efficiency of vector searches for specific types of embeddings. With these features, Redis becomes a flexible solution for businesses seeking to harness the power of vector data in diverse applications, from recommendation engines to similarity search tasks.
 </p>

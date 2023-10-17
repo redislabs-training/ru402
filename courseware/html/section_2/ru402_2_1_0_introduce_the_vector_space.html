@@ -1,69 +1,70 @@
 <p>
-To really comprehend vectors, you need to move our thinking into the mathematical domain of linear algebra, but we'll try to give some examples in two-dimensional vector space that will make the concept easier to understand.
+  To comprehend vectors, you need to move your thinking into the mathematical domain of linear algebra, but we'll try to give some examples in two-dimensional vector space that will make the concept easier to understand.
 
-Let's imagine we have a system in which we track people's height and weight:
-</p>
-
-<div align="center">
-<table>
-    <tr>
-      <th></th>
-      <th>Height</th>
-      <th>Weight</th>
-    </tr>
-    <tr>
-      <td style="padding: 0 10px;">U1</td>
-      <td style="padding: 0 10px;">178</td>
-      <td style="padding: 0 10px;">80</td>
-    </tr>
-    <tr>
-      <td style="padding: 0 10px;">U2</td>
-      <td style="padding: 0 10px;">165</td>
-      <td style="padding: 0 10px;">57</td>
-    </tr>
-    <tr>
-      <td style="padding: 0 10px;">U3</td>
-      <td style="padding: 0 10px;">183</td>
-      <td style="padding: 0 10px;">80</td>
-    </tr>
-    <tr>
-      <td style="padding: 0 10px;">U4</td>
-      <td style="padding: 0 10px;">185</td>
-      <td style="padding: 0 10px;">85</td>
-    </tr>
-    <tr>
-      <td style="padding: 0 10px;">U5</td>
-      <td style="padding: 0 10px;">162</td>
-      <td style="padding: 0 10px;">53</td>
-    </tr>
-    <tr>
-      <td style="padding: 0 10px;">U6</td>
-      <td style="padding: 0 10px;">169</td>
-      <td style="padding: 0 10px;">60</td>
-    </tr>
-  </table>
-</div>
-
-If we represent this in a coordinate system, we'll get a graph looking like this:
-
-<div align="center">
-    <img width="300px" src="../../images/section_2/ru402_2_1_0_vector_space.png" alt="A bi-dimensional vector space">
-</div>
-
-If we add another feature to our users, like body-mass index, for example, we would have to work in a three-dimensional space where our human minds can still easily reason about. Once we start adding even more features, everything becomes more difficult to understand, but the math stays the same. 
-We can still represent vectors in this multidimensional space, the only difference is that we won't be able to easily visualize them anymore.
-
-<h2>Vector similarity</h2>
-<hr>
-
-<p>From the above diagram, we can intuitively guess that vectors that are similar represent people with a similar physique (weight+height). How do we define "similarity", though? There are many ways to calculate how similar two vectors are, and this is expressed through different <strong>distance metrics</strong>.</p>
-
-<p>One distance metric that's easy to visualize in a two-dimensional space is <strong>cosine similarity</strong>, which relies on the angle between two vectors: the smaller the angle is, the more similar the vectors are, and vice versa: the bigger the angle, the more dissimilar the vectors.</p>
-
-<p>In the image below, we can see that the vectors for U1 and U3 have a small angle between them, which means the two people have a more similar height and weight. U1 and U2, however, have a bigger angle between their vectors, which means their height and weight are not very close.</p>
-
-<div align="center">
-    <img width="300px" src="../../images/section_2/ru402_2_1_0_cosine_similarity.png" alt="A bi-dimensional vector space">
-</div>
-
-<p>Cosine similarity is only one of the multiple distance metrics. In the next units, we will explore what other options exist and are supported by Redis.</p>
+  Let's imagine we have a system in which we track people's height and weight:
+  </p>
+  
+  <div align="center">
+  <table>
+      <tr>
+        <th></th>
+        <th>Height</th>
+        <th>Weight</th>
+      </tr>
+      <tr>
+        <td style="padding: 0 10px;">U1</td>
+        <td style="padding: 0 10px;">178</td>
+        <td style="padding: 0 10px;">80</td>
+      </tr>
+      <tr>
+        <td style="padding: 0 10px;">U2</td>
+        <td style="padding: 0 10px;">165</td>
+        <td style="padding: 0 10px;">57</td>
+      </tr>
+      <tr>
+        <td style="padding: 0 10px;">U3</td>
+        <td style="padding: 0 10px;">183</td>
+        <td style="padding: 0 10px;">80</td>
+      </tr>
+      <tr>
+        <td style="padding: 0 10px;">U4</td>
+        <td style="padding: 0 10px;">185</td>
+        <td style="padding: 0 10px;">85</td>
+      </tr>
+      <tr>
+        <td style="padding: 0 10px;">U5</td>
+        <td style="padding: 0 10px;">162</td>
+        <td style="padding: 0 10px;">53</td>
+      </tr>
+      <tr>
+        <td style="padding: 0 10px;">U6</td>
+        <td style="padding: 0 10px;">169</td>
+        <td style="padding: 0 10px;">60</td>
+      </tr>
+    </table>
+  </div>
+  
+  If we represent this in a coordinate system, we'll get a graph looking like this:
+  
+  <div align="center">
+      <img width="300px" src="../../images/section_2/ru402_2_1_0_vector_space.png" alt="A bi-dimensional vector space">
+  </div>
+  
+  If we add another feature to our users, like the body-mass index, we would have to work in a three-dimensional space where our human minds can still easily reason. Once we add more features, everything becomes more difficult to understand, but the math stays the same. 
+  We can still represent vectors in this multidimensional space; the only difference is that we won't be able to visualize them intuitively.
+  
+  <h2>Vector similarity</h2>
+  <hr>
+  
+  <p>From the above diagram, we can intuitively guess that similar vectors represent people with a similar physique (weight+height). How do we define "similarity", though? There are many ways to calculate how similar two vectors are, and this is expressed through different <strong>distance metrics</strong>.</p>
+  
+  <p>One distance metric that's easy to visualize in a two-dimensional space is <strong>cosine similarity</strong>, which relies on the angle between two vectors: the smaller the angle is, the more similar the vectors are, and vice versa: the bigger the angle, the more dissimilar the vectors.</p>
+  
+  <p>In the image below, we can see that the vectors for U1 and U3 have a small angle between them, which means the two people have a more similar height and weight. U1 and U2, however, have a bigger angle between their vectors, which means their height and weight are not very close.</p>
+  
+  <div align="center">
+      <img width="300px" src="../../images/section_2/ru402_2_1_0_cosine_similarity.png" alt="A bi-dimensional vector space">
+  </div>
+  
+  <p>Cosine similarity is only one of the multiple distance metrics. In the following units, we will explore what other options exist and are supported by Redis.</p>
+  

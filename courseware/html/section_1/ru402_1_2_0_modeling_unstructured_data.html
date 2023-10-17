@@ -1,32 +1,42 @@
 <p>
-    Semantic search helps to measure the semantic similarity of unstructured data such as texts, images, or media files, once these have been represented by vectors, a convenient data structure to compress information and easily manageable by a computer. We will introduce the techniques to transform unstructured data into a vector through practical examples and guide you to developing a simple application.
+  Semantic search helps to measure the semantic similarity of unstructured data
+  such as texts, images, or media files. This is achieved by generating a vector that represents the features of the data under analysis because the vector is a convenient data structure to compress information and is easily manageable by a computer. We will introduce the techniques to transform unstructured data into a vector through practical examples and guide you to developing a simple application.
 </p>
 
 <p>
-    Vectors have a huge role in modern Data Science and Machine Learning. With them, we can represent thousands of features for unstructured data such as long texts, images, audio files and more using lists of floating point numbers. You can represent an entity as a vector in different terms: an intuitive way to visualize this representation might be RGB color codes.
+  Vectors have a massive role in modern Data Science and Machine Learning. With
+  them, we can represent thousands of features for unstructured data, such as long texts, images, audio files, and more, using lists of floating point numbers. You can describe an entity as a vector in different terms; an intuitive way to visualize this representation might be RGB color codes. 
 </p>
 
 <div align="center">
-    <div style="display: inline-block; width: 100px; height:100px;background-color: red;"></div>
-    <div style="display: inline-block; width: 100px; height:100px;background-color: green;"></div>
-    <div style="display: inline-block; width: 100px; height:100px;background-color: blue;"></div>
+  <div
+    style="display: inline-block; width: 100px; height:100px;background-color: red;"></div>
+  <div
+    style="display: inline-block; width: 100px; height:100px;background-color: green;"></div>
+  <div
+    style="display: inline-block; width: 100px; height:100px;background-color: blue;"></div>
 </div>
 
 <p>
-    When working with texts, there are several methods to represent them as arrays of number. An example may be expressing texts in relation to the frequency of the words they contain. Consider these two sentences:
+  When working with texts, there are several methods to represent them as arrays of numbers. An example may be expressing texts with the frequency of the words they contain. Consider these
+  two sentences:
 </p>
 
 <ul>
-    <li>"Understanding vector similarity is easy, but understanding all the mathematics behind a vector is not!"</li>
-    <li>"Understanding vector similarity is difficult."</li>
-</ul> 
+  <li>
+    "Understanding vector similarity is easy, but understanding all the mathematics behind a vector is not!"
+  </li>
+  <li>
+    "Understanding vector similarity is difficult."
+  </li>
+</ul>
 
 <p>
-    For a vectorized representation of these texts, we can list and count the repetition of words.
+  For a vectorized representation of these texts, we can list and count the repetition of words.
 </p>
 
 <div align="center">
-<table>
+  <table>
     <thead>
       <tr>
         <th>Word</th>
@@ -95,15 +105,17 @@
 </div>
 
 <p>
-    However, representing sentences and longer texts using this model based on the repetition of words, does not help extract the meaning of sentences, as in the example we have considered.
+  However, representing sentences and longer texts using this model based on the
+  repetition of words does not help extract the meaning of sentences, as in the example we have considered.
 </p>
 
 <ul>
-    <li>"The cat chased the dog"</li>
-    <li>"The dog chased the cat"</li>
-</ul> 
+  <li>"The cat chased the dog"</li>
+  <li>"The dog chased the cat"</li>
+</ul>
 
 <p>
-Modeling the two sentences based on a word <a href="https://en.wikipedia.org/wiki/Bag-of-words_model">frequency model</a> does not retain the meaning of the sentence... who chases whom? To resolve the problem and be able to represent the semantics of unstructured data as in this example, <b>machine learning models</b> come to the rescue. Machine learning models are, in a very simplified way, functions that accept unstructured data as input and produce numerical representations. Such models are developed by deep learning techniques and are capable of capturing the unique data features of the input object. The next unit introduces the embedding models and shows how to obtain vectors in few lines of code.
+  Modeling the two sentences based on a word <a href="https://en.wikipedia.org/wiki/Bag-of-words_model">frequency model</a> does not retain the meaning of the sentence... who chases whom? To resolve the problem and be able to represent the semantics of unstructured data, as in this example, <b>machine learning models</b> come to the rescue.
+  Machine learning models are, in a very simplified way, functions that accept   unstructured data as input and produce numerical representations. Deep learning techniques develop such models and can capture the input object's unique data
+  features. The next unit introduces the embedding models and shows how to obtain vectors in a few lines of code.
 </p>
-

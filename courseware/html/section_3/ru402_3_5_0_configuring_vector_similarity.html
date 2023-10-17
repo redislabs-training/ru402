@@ -1,4 +1,4 @@
-Using Redis as a Vector Database, you have several options to make at design time that will influence your data model, the correctness of the results and the overall performance of your application. The three main aspects you will evaluate in this unit are:
+Using Redis as a Vector Database, you have several options to make at design time that will influence your data model, the correctness of the results, and the overall performance of your application. The three main aspects you will evaluate in this unit are:
 
 <ul>
     <li>
@@ -12,15 +12,15 @@ Using Redis as a Vector Database, you have several options to make at design tim
     </li>
   </ul>
 
-Let's cover the main points to take into account when designing your application.
+Let's cover the main points to consider when designing your application.
 
 <h2>Choosing the right data type</h2>
 <hr>
 
-As discussed, Redis can store and manage vectors in Hash or JSON data types. Besides the intrinsic structural differences between the Hash and the JSON, let's make some considerations.
+Redis can store and manage vectors in Hash or JSON data types, as discussed. Besides the intrinsic structural differences between the Hash and the JSON, let's make some considerations.
 
 <p>
-    In the first place, the JSON data type supports the same features as the Hash data type when performing VSS. There are some slight differences, though, to take into account when working with a determined type.
+    First, the JSON data type supports the same features as the Hash data type when performing VSS. There are some slight differences, though, to take into account when working with a determined type.
 </p>
 
 <ul>
@@ -30,7 +30,7 @@ As discussed, Redis can store and manage vectors in Hash or JSON data types. Bes
       <li>For <strong>JSON documents</strong>, formats used for storing and searching are asymmetric: vectors must be stored as lists rather than binary blobs (<code>model.encode(text).astype(np.float32).tolist()</code>), but to perform VSS, JSON requires the binary blob format <code>model.encode(text).astype(np.float32).tobytes()</code></li>
     </ul>
   </li>
-  <li><strong>Indexing</strong>. Indexing of vectors can be done against a single vector when the vector is stored in a Hash. The JSON format, instead, can store and have multiple vectors indexed</li>
+  <li><strong>Indexing</strong>. The Hash can index a single vector, defined by the <code>FT.CREATE</code> command. The JSON format, instead, can store and have multiple vectors indexed, identified by a JSONPath expression</li>
   <li><strong>Footprint</strong>. JSON has a larger memory footprint compared to the Hash</li>
 </ul>
 
@@ -42,8 +42,8 @@ As discussed, Redis can store and manage vectors in Hash or JSON data types. Bes
 </p>
 
 <ul>
-  <li><strong>L2</strong>. The Euclidean distance is the default distance metric used by many algorithms, and it generally gives good results. Conceptually, it should be used whenever we are comparing observations whose features are continuous: numeric variables like height, weight, or salaries, for example, although, it should be noted that it works best with low-dimensional data and where the magnitude of the vectors is important to be measured.</li>
-  <li><strong>COSINE</strong>. Cosine similarity considers the cosine of the angle formed by two vectors (when the angle is close to 0, the cosine tends to 1, which represents the maximum similarity). The cosine similarity does not account for the magnitude of the vectors being compared. The cosine distance is complementary to cosine similarity (obtained by subtracting the value of the cosine similarity from 1). This distance is appropriate when the magnitude of the vectors is not important in the description of the unstructured data</li>
+  <li><strong>L2</strong>. The Euclidean distance is the default distance metric used by many algorithms, and it generally gives good results. Conceptually, it should be used when we compare observations whose features are continuous: numeric variables like height, weight, or salaries, for example, although it should be noted that it works best with low-dimensional data and where the magnitude of the vectors is important to be measured.</li>
+  <li><strong>COSINE</strong>. Cosine similarity considers the cosine of the angle formed by two vectors (when the angle is close to 0, the cosine tends to 1, representing the maximum similarity). The cosine similarity does not account for the magnitude of the vectors being compared. The cosine distance is complementary to cosine similarity (obtained by subtracting the cosine similarity value from 1). This distance is appropriate when the magnitude of the vectors is not important in the description of the unstructured data</li>
   <li><strong>IP</strong>. The inner product looks at both the angle between the vectors and their magnitude. Note that this distance is equivalent to cosine similarity if vectors are normalized.</li>
 </ul>
 
@@ -61,10 +61,10 @@ As discussed, Redis can store and manage vectors in Hash or JSON data types. Bes
 
 <h3>Flat index (FLAT)</h3>
 <p>
-    For smaller datasets, you can use the <code>FLAT</code> indexing method. This method compares the test vector to all the vectors in the index, one by one. This is a more accurate, but much slower and compute-intensive approach
+    You can use the <code>FLAT</code> indexing method for smaller datasets. This method compares the test vector to all the vectors in the index, one by one. This is a more accurate but much slower and compute-intensive approach
 </p>
 
 <h3>Hierarchical Navigable Small World graphs (HNSW)</h3>
 <p>
-    For bigger datasets, it becomes difficult to compare the test vector to every single vector in the index, so it is adopted a probabilistic approach through the <code>HNSW</code>  algorithm. This method provides very fast search results. This approach trades some accuracy for big performance improvements.
+    For more extensive datasets, it becomes difficult to compare the test vector to every single vector in the index, so a probabilistic approach is adopted through the <code>HNSW</code>  algorithm. This method provides speedy search results. This approach trades some accuracy for significant performance improvements.
 </p>

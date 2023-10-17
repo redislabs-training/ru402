@@ -1,4 +1,6 @@
-<p>When using the JSON type to store the vectors, differently from the hash, vectors must be stored as <strong>arrays of floats</strong> instead of binary blobs. In this Python code sample, the numPy library converts the vector embedding to a list and stores it together with the original text and the desired data.</p>
+<p>
+  When using the JSON type to store the vectors, differently from the hash, vectors must be stored as <strong>arrays of floats</strong> instead of binary blobs. In this Python code sample, the numPy library converts the vector embedding to a list and stores it with the original text and the desired data.
+</p>
 
 <pre><code>vector = embedding.tolist()
 doc = {
@@ -9,15 +11,21 @@ doc = {
 r.json().set("doc:1", '$', doc)
 </code></pre>
 
-<p>Redis long-time users are surely familiar with the hash data type and may opt for it based on its simplicity, speed, and reduced memory footprint. Users that have experience with document stores, instead, may privilege the JSON format for better interoperability.</p>
+<p>
+  Redis long-time users are familiar with the Hash data type and may opt for it based on its simplicity, speed, and reduced memory footprint. Users that have experience with document stores, instead, may privilege the JSON format for better interoperability.
+</p>
 
 <blockquote>
-  <p>Note that one JSON document can store and index multiple vector embeddings. Certain data models may benefit from this feature for specific data representations and document search. As an example, if a large document is split into several chunks, these can all be stored under the same JSON document together with their associated representation as a vector.</p>
+  <p>Note that one JSON document can store and index multiple vector embeddings. Certain data models may benefit from this feature for specific data representations and document searches. For example, if a large document is split into several chunks, these can all be stored under the same JSON document together with their associated representation as a vector.</p>
 </blockquote>
 
-<p>Indexing the JSON document can be achieved similarly to the hash:</p>
+<p>
+  Indexing the JSON document can be achieved similarly to the hash:
+</p>
 
 <pre><code>FT.CREATE doc_idx ON JSON PREFIX 1 doc: SCHEMA $.content as content TEXT $.genre AS genre TAG $.embedding VECTOR HNSW 6 TYPE FLOAT32 DIM 384 DISTANCE_METRIC COSINE
 </code></pre>
 
-<p>Once the data is inserted and the index created using the desired data type, searching for similarity is straightforward.</p>
+<p>
+  Once the data is inserted and the index created using the desired data type, searching for similarity is straightforward.
+</p>

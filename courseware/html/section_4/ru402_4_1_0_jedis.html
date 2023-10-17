@@ -1,7 +1,13 @@
 
-<p>We've provided you with a small example program that uses the <a href="https://github.com/redis/jedis" target="_blank" class="page-link">Jedis</a> client for Java to store and manipulate data in Redis.</p>
-<p>The code is located in the <span class="code"><a href="https://github.com/redislabs-training/ru402/tree/main/src/java" target="_blank" class="page-link">src/java/</a></span> folder in the course GitHub repository.  You should have already cloned this repository to your machine as part of the initial course setup step.</p>
-<p>Follow the instructions in the <a href="https://github.com/redislabs-training/ru402/blob/main/src/java/README.md" target="_blank" class="page-link">README.md</a> file if you'd like to run the code in your local environment.</p>
+<p>
+    We've provided you with a small example program that uses the <a href="https://github.com/redis/jedis" target="_blank" class="page-link">Jedis</a> client for Java to store and manipulate data in Redis.
+</p>
+<p>
+    The code is located in the <span class="code"><a href="https://github.com/redislabs-training/ru402/tree/main/src/java" target="_blank" class="page-link">src/java/</a></span> folder in the course GitHub repository.  You should have already cloned this repository to your machine as part of the initial course setup step.
+</p>
+<p>
+    Follow the instructions in the <a href="https://github.com/redislabs-training/ru402/blob/main/src/java/README.md" target="_blank" class="page-link">README.md</a> file if you'd like to run the code in your local environment.
+</p>
 
 <h2>Code Walkthrough</h2>
 <hr>
@@ -52,7 +58,7 @@ In this example, we are modeling simple documents having this structure:
 }
 </code></pre>
 
-Provided there is no nested information in our document, the Hash data type fulfills the purpose. In addition to creating an index for the vector embedding, we will create also a full-text index of type <code>TEXT</code> for the <code>content</code> field and an index of type <code>TAG</code> for the <code>genre</code> field. The relevant options for the <code>VECTOR</code> index type are also specified, such as a Euclidean distance, and the vector dimension. You can learn more about the rest of the option from the <a href="https://redis.io/docs/interact/search-and-query/advanced-concepts/vectors/">documentation</a>.
+Provided there is no nested information in our document, the Hash data type fulfills the purpose. In addition to creating an index for the vector embedding, we will also create a full-text index of type <code>TEXT</code> for the <code>content</code> field and an index of type <code>TAG</code> for the <code>genre</code> field. The relevant options for the <code>VECTOR</code> index type, such as the Euclidean distance and the vector dimension, are also specified. You can learn more about the rest of the options from the <a href="https://redis.io/docs/interact/search-and-query/advanced-concepts/vectors/">documentation</a>.
 
 <pre>
 IndexDefinition definition = new IndexDefinition().setPrefixes(new String[]{"doc:"});
@@ -69,7 +75,7 @@ unifiedjedis.ftCreate("vector_idx", IndexOptions.defaultOptions().setDefinition(
 <h3>Vector embedding generation</h3>
 <hr>
 
-Vector embeddings can be created using the model created before. Note that embeddings are stored in Hashes using the binary blob format, used in the example.
+Vector embeddings can be created using the model created before. Note that embeddings are stored in Hashes using the binary blob format used in the example.
 
 <pre>
 String sentence1 = "That is a very happy person";
@@ -85,7 +91,7 @@ Remember that JSON must store vector embeddings as arrays of float. Hence, the r
 <h3>Perform the search</h3>
 <hr>
 
-Finally, considering the test sentence "That is a happy person", we perform the KNN search and return the score of the search and the content of the best matches. In this example we are returning the three documents, so you can analyze the score.
+Finally, considering the test sentence "That is a happy person", we perform the KNN search and return the score of the search and the content of the best matches. In this example, we are returning the three documents so you can analyze the score.
 
 <pre>
 // This is the test sentence

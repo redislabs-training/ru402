@@ -1,4 +1,6 @@
-<p>The vector embedding we have just generated can be stored in a Hash as a <strong>binary blob</strong> within the document itself, together with the rest of fields. This means that if our document is structured as follows:</p>
+<p>
+  The vector embedding we have just generated can be stored in a Hash as a <strong>binary blob</strong> within the document itself, together with the rest of the fields. This means that if our document is structured as follows:
+</p>
 
 <pre><code>{
     "content": "Understanding vector similarity is easy, but understanding all the mathematics behind a vector is not!",
@@ -23,7 +25,7 @@ r.hset('doc:1', mapping = {'embedding': blob,
                            'content': text})
 </code></pre>
 
-<p>Hash documents can be indexed as usual with <code>FT.CREATE</code> using the <code>VECTOR</code> index type. We can also index other fields in the same index definition, like the <code>TEXT</code> and <code>TAG</code> fields in the following instructions. Indexing several fields in the same index enables hybrid searches, which we'll show later.</p>
+<p>Hash documents can be indexed with <code>FT.CREATE</code> using the <code>VECTOR</code> index type. We can also index other fields in the same index definition, like the <code>TEXT</code> and <code>TAG</code> fields in the following instructions. Indexing several fields in the same index enables hybrid searches, which we'll show later.</p>
 
 <pre><code>FT.CREATE doc_idx ON HASH PREFIX 1 doc: SCHEMA content AS content TEXT genre AS genre TAG embedding VECTOR HNSW 6 TYPE FLOAT32 DIM 384 DISTANCE_METRIC COSINE
 </code></pre>

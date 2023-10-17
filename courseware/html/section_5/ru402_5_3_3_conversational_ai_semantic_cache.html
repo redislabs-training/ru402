@@ -1,5 +1,5 @@
 <p>
-    Semantic caching is used with large user bases or commonly asked questions. As usual with caching, this use case is about improving the application's responsiveness and driving a cost reduction when using LLM-as-a-service. Because LLM completions are expensive, it helps to reduce the overall costs of the ML-powered application.
+    Semantic caching is used with large user bases or commonly asked questions. As usual with caching, this use case is about improving the application's responsiveness and reducing costs when using LLM-as-a-service. Because LLM completions are expensive, it helps to reduce the overall costs of the ML-powered application.
 </p>
 
 <div align="center">
@@ -7,7 +7,7 @@
 </div>
 
 <p>
-    In practical terms, if a semantic cache is in place, whenever a new question is asked, this will be vectorized and semantic search executed to find out if this question was already asked (we may use VSS with range search and establish a radius to refine the results). If the question has been asked, the LLM does not intervene to generate the answer, and the cached response is returned. Otherwise, the LLM produces a new response, which is cached for future searches.
+    In practical terms, if a semantic cache is in place, whenever a new question is asked, this will be vectorized, and semantic search will be executed to find out if this question was already asked (we may use VSS with range search and establish a radius to refine the results). If the same question has already been asked, the LLM does not intervene to generate the answer, and the cached response is returned. Otherwise, the LLM produces a new response, which is cached for future searches.
 </p>
 
 <ul>

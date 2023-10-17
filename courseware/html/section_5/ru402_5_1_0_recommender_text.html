@@ -1,5 +1,5 @@
 <p>
-    The idea behind a recommender system using Vector Similarity Search (VSS) is to transform the relevant information (title, description, date of creation, authors and more) into the corresponding vector embedding, and store it together with the original data. Then, when visualizing an entry (an article of a digital newspaper or any other media from the web), it is possible to leverage the stored vector embedding for that very entry and feed into a VSS operation to semantically similar content.
+  The idea behind a recommender system using Vector Similarity Search (VSS) is to transform the relevant information (title, description, date of creation, authors, and more) into the corresponding vector embedding and store it in the same document as the original data. Then, when visualizing an entry (an article from a digital newspaper or any other media from the web), it is possible to leverage the stored vector embedding for that entry and feed into a VSS operation to semantically similar content.
 </p>
 <p>Let's consider the following example.</p>
 
@@ -7,46 +7,46 @@
 <hr>
 
 <ul>
-    <li>We will use the dataset of books available under <a href="https://github.com/redislabs-training/ru402/tree/main/data/books">/data/books</a></li>
-    <li>The source code of the example is available as the Jupyter notebook <a href="https://github.com/redislabs-training/ru402/blob/main/src/jupyter/books.ipynb">books.ipynb</a></li>
+  <li>We will use the dataset of books available under <a href="https://github.com/redislabs-training/ru402/tree/main/data/books">/data/books</a></li>
+  <li>The source code of the example is available as the Jupyter notebook <a href= "https://github.com/redislabs-training/ru402/blob/main/src/jupyter/books.ipynb">books.ipynb</a></li>
 </ul>
 
 <p>You can refer to the source code for the details to load the books and generate the embeddings. Books will be stored in the following JSON format and using the Redis Stack JSON data type.</p>
 
 <pre>
-    {
-        "author": "Martha Wells",
-        "id": "43",
-        "description": "“My risk-assessment module predicts a 53 percent chance of a human-on-human massacre before the end of the contract.”A short story published in Wired.com magazine on December 17, 2018.",
-        "editions": [
-          "english"
-        ],
-        "genres": [
-          "adult",
-          "artificial intelligence",
-          "fantasy",
-          "fiction",
-          "humor",
-          "science fiction",
-          "science fiction (dystopia)",
-          "short stories",
-          "space"
-        ],
-        "inventory": [
-          {
-            "status": "available",
-            "stock_id": "43_1"
-          }
-        ],
-        "metrics": {
-          "rating_votes": 274,
-          "score": 4.05
-        },
-        "pages": 369,
-        "title": "Compulsory",
-        "url": "https://www.goodreads.com/book/show/56033969-compulsory",
-        "year_published": 2018
-      }
+  {
+      "author": "Martha Wells",
+      "id": "43",
+      "description": "My risk-assessment module predicts a 53 percent chance of a human-on-human massacre before the end of the contract." A short story published in Wired.com magazine on December 17, 2018.",
+      "editions": [
+        "english"
+      ],
+      "genres": [
+        "adult",
+        "artificial intelligence",
+        "fantasy",
+        "fiction",
+        "humor",
+        "science fiction",
+        "science fiction (dystopia)",
+        "short stories",
+        "space"
+      ],
+      "inventory": [
+        {
+          "status": "available",
+          "stock_id": "43_1"
+        }
+      ],
+      "metrics": {
+        "rating_votes": 274,
+        "score": 4.05
+      },
+      "pages": 369,
+      "title": "Compulsory",
+      "url": "https://www.goodreads.com/book/show/56033969-compulsory",
+      "year_published": 2018
+    }
 </pre>
 
 <p>The relevant section in the example is the implementation of semantic search, delivered by this snippet of code:</p>
@@ -63,13 +63,13 @@ return res
 The previous snippet does the following:
 
 <ul>
-    <li>Given a document, it extracts the vector embedding for that document from the JSON entry</li>
-    <li>It converts the vector embedding, stored as array of floats, to a binary array</li>
-    <li>It executes Vector Similarity Search to find similarities and get the most similar books</li>
-    <li>It pages the results excluding the first result, hence paging starts from 1 rather than 0. In the fist position we would find the entry itself, having distance equal to zero</li>
+  <li>Given a document, it extracts the vector embedding for that document from the JSON entry</li>
+  <li>It converts the vector embedding, stored as an array of floats, to a binary array</li>
+  <li>It executes Vector Similarity Search to find similarities and get the most similar books</li>
+  <li>It pages the results, excluding the first result. Hence, paging starts from 1 rather than 0. In the first position, we would find the entry itself, having a distance from the test vector equal to zero</li>
 </ul>
 
-Launching the execution of the example for the two known movies: <a href="https://www.goodreads.com/book/show/830502.It">"It"</a> and <a href="https://www.goodreads.com/book/show/390032.Transformers">"Transformers: The Ultimate Guide"</a>:
+Launching the execution of the example for the two known movies: <a href= "https://www.goodreads.com/book/show/830502.It"> "It" </a> and <a href= "https://www.goodreads.com/book/show/390032.Transformers"> "Transformers: The Ultimate Guide" </a>:
 
 <pre>
 print(get_recommendation('book:26415'))
@@ -87,22 +87,22 @@ Result{5 total, docs: [Document {'id': 'book:15', 'payload': None, '$.title': 'T
 <h2>Performing hybrid search</h2>
 <hr>
 
-In this example, we have executed a KNN search and retrieved the documents having the closest distance from the document being considered. Alternatively, we can perform VSS range search to retrieve results having the <b>desired distance</b> from the sample vector embedding. The related code is:
+In this example, we executed a KNN search and retrieved the documents with the closest distance from the document being considered. Alternatively, we can perform a VSS range search to retrieve results having the <b>desired distance</b> from the sample vector embedding. The related code is:
 
 <pre><code>
 def get_recommendation_by_range(key):
 embedding = r.json().get(key)
 embedding_as_blob = np.array(embedding['embedding'], dtype=np.float32).tobytes()
 q = Query("@embedding:[VECTOR_RANGE $radius $vec]=>{$YIELD_DISTANCE_AS: score}") \
-    .return_fields("title") \
-    .sort_by("score", asc=True) \
-    .paging(1, 5) \
-    .dialect(2)
+  .return_fields("title") \
+  .sort_by("score", asc=True) \
+  .paging(1, 5) \
+  .dialect(2)
 
 # Find all vectors within a radius from the query vector
 query_params = {
-    "radius": 3,
-    "vec": embedding_as_blob
+  "radius": 3,
+  "vec": embedding_as_blob
 }
 
 res = r.ft("books_idx").search(q, query_params)
@@ -114,5 +114,5 @@ Computing this VSS range search returns similar results.
 <pre>
 Result{1486 total, docs: [Document {'id': 'book:3008', 'payload': None, 'title': 'Wayward'}, Document {'id': 'book:2706', 'payload': None, 'title': 'Before the Devil Breaks You'}, Document {'id': 'book:23187', 'payload': None, 'title': 'Neverwhere'}, Document {'id': 'book:942', 'payload': None, 'title': 'The Dead'}, Document {'id': 'book:519', 'payload': None, 'title': 'The Last Days of Magic'}]}
 
-Result{1486 total, docs: [Document {'id': 'book:15', 'payload': None, 'title': 'Transformers Volume 1: For All Mankind'}, Document {'id': 'book:3', 'payload': None, 'title': 'Transformers: All Fall Down'}, Document {'id': 'book:110', 'payload': None, 'title': 'Transformers: Exodus: The Official History of the War for Cybertron (Transformers'}, Document {'id': 'book:2', 'payload': None, 'title': 'Transformers Generation One, Vol. 1'}, Document {'id': 'book:37', 'payload': None, 'title': 'How to Build a Robot Army: Tips on Defending Planet Earth Against Alien Invaders, Ninjas, and Zombies'}]}
+Result{1486 total, docs: [Document {'id': 'book:15', 'payload': None, 'title': 'Transformers Volume 1: For All Mankind'}, Document {'id': 'book:3', 'payload': None, 'title': 'Transformers: All Fall Down'}, Document {'id': 'book:110', 'payload': None, 'title': 'Transformers: Exodus: The Official History of the War for Cybertron (Transformers'}, Document {'id': 'book:2', 'payload': None, 'title': 'Transformers Generation One, Vol. 1'}, document {'id': 'book:37', 'payload': None, 'title': 'How to Build a Robot Army: Tips on Defending Planet Earth Against Alien Invaders, Ninjas, and Zombies'}]}
 </pre>

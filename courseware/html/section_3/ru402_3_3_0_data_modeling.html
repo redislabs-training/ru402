@@ -1,12 +1,17 @@
-<p>Both the Hash and the JSON data types are suitable vector containers. In the following examples, we will show how to work with such data types. Let's calculate the vector embedding first, using the free <a href="https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2">all-MiniLM-L6-v2</a> embedding model from the HuggingFace library. This model maps texts of up to 256 words to a 384-dimensional dense vector space.</p>
+<p>
+    Both the Hash and the JSON data types are suitable vector containers. In the following examples, we will show how to work with such data types. Let's calculate the vector embedding first, using the free <a href="https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2">all-MiniLM-L6-v2</a> embedding model from the HuggingFace library. This model maps texts of up to 256 words to a 384-dimensional dense vector space.
+</p>
 
-<pre>text = "Understanding vector similarity is easy, but understanding all the mathematics behind a vector is not!"
+<pre>
+text = "Understanding vector similarity is easy, but understanding all the mathematics behind a vector is not!"
 model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 embedding = model.encode(text)
 </pre>
 
 <blockquote>
-Note that Redis does not generate vectors, this is a responsibility of the client application to choose the desired library (HuggingFace, OpenAI, Cohere and more)
+Note that Redis does not generate vectors; this is the responsibility of the client application to choose the desired library (HuggingFace, OpenAI, Cohere, and more)
 </blockquote>
 
-<p>Next, we will store the vector embedding using the desired data structure and will learn the syntax to create the index on the vector field stored in the document of choice. If you have already worked with Redis secondary indexing capabilities, you know how to use the commands <a href="https://redis.io/commands/ft.create/">FT.CREATE</a> and <a href="https://redis.io/commands/ft.search/">FT.SEARCH</a>. Vectors can be indexed using the <code>VECTOR</code> data type, which adds to the existing <code>TEXT</code>, <code>TAG</code>, <code>NUMERIC</code>, <code>GEO</code> and <code>GEOSHAPE</code> types.</p>
+<p>
+    Next, we will store the vector embedding using the desired data structure and learn the syntax to create the index on the vector field stored in the document of choice. If you have already worked with Redis secondary indexing capabilities, you know how to use the commands <a href="https://redis.io/commands/ft.create/">FT.CREATE</a> and <a href="https://redis.io/commands/ft.search/">FT.SEARCH</a>. Vectors can be indexed using the <code>VECTOR</code> data type, which adds to the existing <code>TEXT</code>, <code>TAG</code>, <code>NUMERIC</code>, <code>GEO</code> and <code>GEOSHAPE</code> types.
+</p>

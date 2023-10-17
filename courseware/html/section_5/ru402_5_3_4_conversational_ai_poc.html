@@ -1,11 +1,16 @@
 <h2>Setting up a RAG Chatbot</h2>
 
-<p>Prototyping an ML-powered chatbot is not an impossible mission. The many frameworks and libraries available, together with the simplicity of getting an API token from the chosen LLM service provider, can assist you in setting up a proof-of-concept in a few hours and lines of code. Sticking to the three phases mentioned above, let's proceed to create a chatbot assistant.</p>
+<p>Prototyping an ML-powered chatbot is not an impossible mission. The many frameworks and libraries available, together with the simplicity of getting an API token from the chosen LLM service provider, can assist you in setting up a proof-of-concept in a few hours and lines of code. Sticking to the three phases mentioned earlier (preparation, generation and retrieval), let's proceed to create a chatbot assistant, a <b>movie expert</b> you can get recommendations from and ask for specific movies.</p>
 
-<h3>Preparation</h3>
+<blockquote>
+    If you would like to run the example first, jump to the bottom of this article to learn how to do so.
+</blockquote>
+
+
+<h2>Preparation</h2>
 <hr>
 
-<p>Imagine a movie expert who may answer questions or recommend movies based on criteria (genre, your favorite cast, or rating). A smart automated chatbot will be trained on a corpus of popular movies which for this example we have downloaded from Kaggle: the <a href="https://www.kaggle.com/datasets/ashpalsingh1525/imdb-movies-dataset">IMDB movies dataset</a>, with more than 10,000 movies and plenty of relevant information. An entry in the dataset stores the following information:</p>
+<p>Imagine a movie expert who may answer questions or recommend movies based on criteria (genre, your favorite cast, or rating). A smart, automated chatbot will be trained on a corpus of popular films, which for this example, we have downloaded from Kaggle: the <a href="https://www.kaggle.com/datasets/ashpalsingh1525/imdb-movies-dataset">IMDB movies dataset</a>, with more than 10,000 movies and plenty of relevant information. An entry in the dataset stores the following information:</p>
 
 <pre>
 {
@@ -33,20 +38,20 @@
 }
 </pre>
 
-<p>As mentioned, to enable context retrieval we will capture the semantics of the data using an embedding model and we will store the embedding vector in the database, which will perform indexing using the desired method (<code>FLAT</code> or <code>HNSW</code>), distance (<code>L2</code>, <code>IP</code> or <code>COSINE</code>) and the required vector dimension. In particular, the index definition depends on the dimension of the vector specified by <code>DIM</code>, which is set by the chosen embedding model. The chosen embedding model we will use along this example is the open-source <code>all-MiniLM-L6-v2</code> sentence transformer, which converts the provided paragraphs to a <code>384</code> dimensional dense vector space.</p>
+<p>As mentioned, to enable context retrieval, we will capture the semantics of the data using an embedding model and we will store the embedding vector in the database, which will perform indexing using the desired method (<code>FLAT</code> or <code>HNSW</code>), distance (<code>L2</code>, <code>IP</code> or <code>COSINE</code>) and the required vector dimension. In particular, the index definition depends on the dimension of the vector specified by <code>DIM</code>, which is set by the chosen embedding model. The chosen embedding model we will use along this example is the open-source <code>all-MiniLM-L6-v2</code> sentence transformer, which converts the provided paragraphs to a <code>384</code> dimensional dense vector space.</p>
 
 <blockquote>
-<p>Note that embedding models support the conversion of texts up to a certain size. The chosen model warns that "input text longer than 256 word pieces is truncated". This is not an issue for our movies dataset, because we expect to convert paragraphs whose length is shorter than the limit. However, for longer texts or even entire books, setting up a text chunking strategy to map a document to multiple vector embeddings is needed.</p>
+<p>Note that embedding models support the conversion of texts up to a certain size. The chosen model warns that "input text longer than 256 word pieces is truncated". This is not an issue for our movies dataset because we expect to convert paragraphs whose length is shorter than the limit. However, setting up a text chunking strategy to map a document to multiple vector embeddings is needed for longer texts or even entire books.</p>
 </blockquote>
 
-<p>Now we can parse the CSV dataset and import it in JSON format into Redis, so we would read a movie entry with:</p>
+<p>Now we can parse the CSV dataset and import it in JSON format into Redis so that we would read a movie entry with:</p>
 
 <pre>
 JSON.GET moviebot:movie:2 $.names $.overview
 {"$.overview":["While working underground to fix a water main, Brooklyn plumbers—and brothers—Mario and Luigi are transported down a mysterious pipe and wander into a magical new world. But when the brothers are separated, Mario embarks on an epic quest to find Luigi."],"$.names":["The Super Mario Bros. Movie"]}
 </pre>
 
-<p>We can read any nested entry or multiple entries in JSON documents stored in Redis Enterprise using the <a href="https://redis.io/docs/data-types/json/path/">JSONPath</a> syntax, however, we cannot perform searches without an index. So we will proceed to create an index for this dataset and then define the schema aligned to the data structure, and specify the embedding model and distance metric to be used for semantic search with VSS as long as the vector dimension set by the chosen embedding model, <code>384</code> in this case. A possible index definition could be:</p>
+<p>We can read any nested entry or multiple entries in JSON documents stored in Redis Enterprise using the <a href="https://redis.io/docs/data-types/json/path/">JSONPath</a> syntax. However, we cannot perform searches without an index. So, we will proceed to create an index for this dataset, define the schema aligned to the data structure, and specify the embedding model and distance metric to be used for semantic search with VSS as long as the vector dimension set by the chosen embedding model, <code>384</code> in this case. A possible index definition could be:</p>
 
 <pre>
 FT.CREATE movie_idx ON JSON PREFIX 1 moviebot:movie: SCHEMA $.crew AS crew TEXT $.overview AS overview TEXT $.genre AS genre TAG SEPARATOR , $.names AS names TAG SEPARATOR , $.overview_embedding AS embedding VECTOR HNSW 6 TYPE FLOAT32 DIM 384 DISTANCE_METRIC COSINE
@@ -72,9 +77,9 @@ FT.SEARCH movie_idx @overview:'While working underground' RETURN 1 names
        2) "The adventures of a group of explorers who make use of a newly discovered wormhole to surpass the limitations on human space travel and conquer the vast distances involved in an interstellar voyage."
 </pre>
 
-<p>Secondary index search is certainly relevant to assist the retrieval of contextual information or additional details, or even when the codebase is tightly coupled to the LLM using <a href="https://platform.openai.com/docs/guides/gpt/function-calling">function calling</a> capabilities and we want to answer questions using information that spans the entire dataset (such as the average rating of all the movies of a specific genre). However, for this proof-of-concept we will resort to VSS only and the index defined accordingly.</p>
+<p>Secondary index search is certainly relevant to assist the retrieval of contextual information or additional details, or even when the codebase is tightly coupled to the LLM using <a href="https://platform.openai.com/docs/guides/gpt/function-calling">function calling</a> capabilities. We want to answer questions using information that spans the entire dataset (such as the average rating of all the movies of a specific genre). However, for this proof-of-concept, we will resort to VSS only, and the index defined accordingly.</p>
 
-<p>The final step to complete the preparation phase is deciding what is going to be indexed by the database, and for that, we need to prepare the paragraph to be transformed by the embedding model. We can capture as much information as we want. In the following Python excerpt, we will extract one entry and format the string <code>movie</code>.</p>
+<p>The final step to complete the preparation phase is deciding what will be indexed by the database; for that, we need to prepare the paragraph to be transformed by the embedding model. We can capture as much information as we want. In the following Python excerpt, we will extract one entry and format the string <code>movie</code>.</p>
 
 <pre>
 result = conn.json().get(key, "$.names", "$.overview", "$.crew", "$.score", "$.genre")
@@ -85,7 +90,7 @@ movie += f"movie score is: {result['$.score'][0]}\n"
 movie += f"movie overview is: {result['$.overview'][0]}\n"
 </pre>
 
-<p>Now we can transform this string to a vector using the chosen model, and store the vector in the same JSON entry, so the vector is packed together with the original entry in a compact object.</p>
+<p>Now, we can transform this string to a vector using the chosen model and store the vector in the same JSON entry, so the vector is packed together with the original entry in a compact object.</p>
 
 <pre>
 from sentence_transformers import SentenceTransformer
@@ -98,10 +103,10 @@ conn.json().set(key, "$.overview_embedding", embedding)
 <p>Repeating the operation for all the movies in the dataset completes the preparation phase.</p>
 
 
-<h3>Retrieval</h3>
+<h2>Retrieval</h2>
 <hr>
 
-<p>In this phase, we deal with the question from the user. The interaction is usually collected in the front-end of a web application, using a standard input form, so you can capture it and forward it to the back-end for processing. As anticipated, the question and the context will be semantically similar, so a proven technique to instruct the LLM with a context is to transform the question to vector embedding, then perform VSS to collect the desired number of outputs, and finally construct the prompt. A Python sample code to perform VSS in Redis follows:</p>
+<p>In this phase, we deal with the question from the user. The interaction is usually collected in the front end of a web application, using a standard input form, so you can capture it and forward it to the back end for processing. As anticipated, the question and the context will be semantically similar, so a proven technique to instruct the LLM with a context is to transform the question to vector embedding, then perform VSS to collect the desired number of outputs, and finally construct the prompt. A Python sample code to perform VSS in Redis follows:</p>
 
 <pre>
 context = ""
@@ -130,9 +135,9 @@ if (res is not None) and len(res.docs):
         context += movie + "\n"
 </pre>
 
-<p>The search command performs a VSS range search and filters results exceeding a certain score specified by <code>VSS_MINIMUM_SCORE</code>, and collects 3 samples. In the example, we extract the desired metadata from the results and concatenate it to create a context for the interaction.</p>
+<p>The search command performs a VSS range search and filters results exceeding a certain score specified by <code>VSS_MINIMUM_SCORE</code> and collects three samples. In the example, we extract the desired metadata from the results and concatenate it to create a context for the interaction.</p>
 
-<p><em>In our example, the dataset provides a short overview of the movie and other information, so we can simply construct the context by concatenating the information in a string. However, the context window supported by LLMs is limited by a maximum number of tokens (learn more from the <a href="https://platform.openai.com/tokenizer">OpenAI tokenizer page</a>). In addition, the LLM service provider charges you by the overall number of input and output tokens, so limiting the number of tokens provided in the context, and instructing the model to return an output limited in size, may be convenient.</em></p>
+<p><em>In our example, the dataset provides a short overview of the movie and other information, so we can construct the context by concatenating the information in a string. However, the context window supported by LLMs is limited by a maximum number of tokens (learn more from the <a href="https://platform.openai.com/tokenizer">OpenAI tokenizer page</a>). In addition, the LLM service provider charges you by the overall number of input and output tokens, so limiting the number of tokens provided in the context and instructing the model to return an output limited in size may be convenient.</em></p>
 
 <p>Having retrieved the required information, the prompt you construct should include the knowledge you want the LLM to use for generating responses. It should provide clear instructions for handling user queries and accessing the indexed data. An example might be:</p>
 
@@ -158,17 +163,19 @@ Information in the database:
 <p>Formatting the prompt with the context and the query from the user completes the retrieval phase, and we are ready to interact with the LLM.</p>
 
 
-<h3>Generation</h3>
+<h2>Generation</h2>
 <hr>
 
-<p>In the final phase, which concludes this example, we will forward the prompt to the LLM. We will use an OpenAI endpoint to leverage the GPT-3.5 model <a href="https://platform.openai.com/docs/models/gpt-3-5">gpt-3.5-turbo-0613</a>, but we may have used the desired model. Whatever the choice, using an LLM-as-a-service is the best way to set up and prepare a demonstration without major efforts, which a local LLM will imply. To go ahead with GPT-3.5, create your OpenAI token and specify it using the environment variable <code>OPENAI_API_KEY</code>.</p>
+<p>
+    In the final phase, which concludes this example, we will forward the prompt to the LLM. We will use an OpenAI endpoint to leverage the GPT-3.5 model <a href="https://platform.openai.com/docs/models/gpt-3-5">gpt-3.5-turbo-0613</a>, but we may have used the desired model. Whatever the choice, using an LLM-as-a-service is the best way to set up and prepare a demonstration without major efforts, which a local LLM will imply. To go ahead with GPT-3.5, create your OpenAI token and specify it using the environment variable <code>OPENAI_API_KEY</code>.
+</p>
 
 <pre><code>export OPENAI_API_KEY="1234567890abcdefghijklmnopqrstuvwxyz"
 </code></pre>
 
 <p>Using the OpenAI <a href="https://platform.openai.com/docs/guides/gpt/chat-completions-api">ChatCompletion API</a> is straightforward, refer to the <a href="https://platform.openai.com/docs/api-reference/chat">API documentation</a> to learn the details. To send the request you will need to specify, besides the chosen model, at least:</p>
 <ul>
-  <li><strong>The system message</strong> sets the context and the tone of the conversation. It is typically the first message in the interaction and is used to guide the model's behavior during the conversation. As an example, you may specify here that you would like the interaction to be customized for primary school students. This would tune the tone accordingly and produce responses suitable for youngsters.</li>
+  <li><strong>The system message</strong> sets the context and the tone of the conversation. It is typically the first message in the interaction and guides the model's behavior during the conversation. For example, you may specify here that you would like the interaction customized for primary school students. This would tune the tone accordingly and produce responses suitable for youngsters.</li>
   <li><strong>The stream behavior</strong>. If you have used the ChatGPT online chatbot, you have noticed how the first word is returned almost immediately after submitting the question. This happens because the response is built and streamed as it is produced on the server. This creates a good user experience but requires managing a stream of information and updating the user interface accordingly. In this example, we will go for a batched response, so the time to the first word equals the time to get the full response, which is easier to implement.</li>
   <li><strong>The messages in the conversation</strong>. In this example, we are submitting the prompt just produced, but note that you won't be able to ask the LLM questions such as <em>Can you refine the previous response to be shorter?</em> or <em>make a summary of the conversation kept so far</em>. Conversations with the LLM are stateless, so the model does not keep track of any interaction. It is delegated to the client application to store the messages, search for them when required, and forward them as a list of messages.</li>
 </ul>
@@ -193,3 +200,35 @@ except openai.error.OpenAIError as e:
 </code></pre>
 
 <p>Congratulations, you have completed the setup of a movie expert chatbot!</p>
+
+
+<h2>Running the Jupyter example</h2>
+<hr>
+
+We have provided you with a Jupyter notebook that includes the entire example and opens an input form to chat with the Generative AI right within the notebook itself. Follow this procedure to create and activate your Python virtual environment:
+
+<pre>
+python -m venv vssvenv
+source vssvenv/bin/activate
+</pre>
+
+Once done, install the required modules defined by the <code>requirements.txt</code> requirements file, available under <a href="https://github.com/redislabs-training/ru402/tree/main/src/jupyter">/src/jupyter</a>
+
+<pre>
+pip install -r requirements.txt
+</pre>
+
+Ensure that your Redis Stack instance is running and complete the configuration of the environment, by setting the two environment variables that configure your Redis instance (default is <code>localhost</code> on port 6379) and your <a href="https://platform.openai.com/docs/quickstart/account-setup">OpenAI token</a>: the chatbot leverages the OpenAI ChatGPT ChatCompletion API. 
+
+<ul>
+<li><code>export REDIS_URL=redis://user:password@host:port</code></li>
+<li><code>export OPENAI_API_KEY="your-openai-token"</code></li>
+</ul>
+
+Now you can start the notebook and execute all the cells.
+
+<pre>
+jupyter notebook moviebot.ipynb
+</pre>
+
+This will open an input field, type your question (e.g. <i>Recommend three science fiction movies</i>) and check the result!
