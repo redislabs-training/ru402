@@ -1,32 +1,104 @@
 <p>
-    Implementing a visual recommender system using Vector Similarity Search (VSS) follows the same logic of the textual recommender systems. Once the image is modeled as a vector embedding, the implementation is very much alike: the main difference resides in the embedding model used to generate the vector from the image file.
+    Implementing a visual recommender system using Vector Similarity Search (VSS) follows the same logic as the textual recommender systems. Once the image is modeled as a vector embedding, the implementation is very similar: the main difference resides in the embedding model used to generate the vector from the image file.
 </p>
 <p>
-    In this unit we will revisit the same concepts learned so far, but we will work with images, and rather than implementing a recommender system, we will propose a face recognition system.
+    In this unit, we will revisit the same concepts learned so far, but rather than text, we will work with images and guide you through implementing a face recognition system.
 </p>
 
 <h2>Develop your own face recognition system</h2>
 <hr>
 
 <p>
-    
+    This example delves into modeling and running classification algorithms for human face recognition. While face recognition systems are developed as multi-stage pipelines including motion detection, image preprocessing, face detection and modeling, and more, in this example, we will put the focus on the modeling and classification algorithms using a pre-trained machine learning model optimized for face recognition, and Redis Stack as a vector database.
+</p>
+<p>
+    Pattern recognition involves the training and testing of a system using data samples. One specific application of pattern recognition is face recognition, which focuses on human faces' unique patterns and features to identify individuals. 
+</p>
+<p>
+    We will use the <a href="https://www.kaggle.com/datasets/tavarez/the-orl-database-for-training-and-testing/">ORL Database of Faces</a>, provided by the <a href="http://cam-orl.co.uk/facedatabase.html">AT&T Laboratories Cambridge</a>, to train and test the system. The ORL database is among the simplest face databases, comprised of pictures of 40 individuals taken between April 1992 and April 1994, 10 images each, for a total of 400 photos: 92x112 black and white bitmaps. The faces are aligned and normalized and ready to be processed by a feature extraction algorithm. 
+</p>
+<p>
+    We will split the dataset into training and testing sets.
+    <ol>
+        <li>Of the 10 photos available per individual, we select 5 to extract vector embeddings and store them in Redis, one per document. This means we will use 200 images to train our system to recognize identities from the ORL database</li>
+        <li>The rest of 5 faces are used to test the system. Every test image is vectorized and VSS performed.</li>
+        <li>If the identity of the individual matches the result of VSS, we account for a success</li>
+        <li>We will present a recognition rate. Testing with different embedding models can be evaluated by the success rate</li>
+    </ol>
 </p>
 
 
+<h2>Modelling the faces</h2>
+<hr>
+
+The model extraction is performed using <a href="https://github.com/serengil/deepface">Deepface</a>, a lightweight library for face recognition and facial attribute analysis. The library supports several models. In the example, we have configured <a href="https://sefiks.com/2018/08/06/deep-face-recognition-with-keras/">VGG-Face</a>, which maps an image to a vector of 2622 elements. We will store the embeddings in the Hash data structure in the form:
+
 <pre>
-pip install deepface
+{ 
+    'person_id':person,
+    'person_path':facepath,
+    'embedding':embedding
+}
+</pre>
+</p>
+
+The code sample that implements the logic follows.
+
+<pre>
+    <code>
+for person in range(1, 41):
+person = "s" + str(person)
+for face in range(1, 6):
+    facepath = '../../data/orl/' + person + "/" + str(face) + '.bmp'
+    print ("Training face: " + facepath)
+    vec = DeepFace.represent(facepath, model_name=models[0], enforce_detection=False)[0]['embedding']
+    embedding = np.array(vec, dtype=np.float32).astype(np.float32).tobytes()
+    face_data_values ={ 'person_id':person,
+                        'person_path':facepath,
+                        'embedding':embedding}
+    r.hset('face:'+person+':'+str(face),mapping=face_data_values)
+    </code>
 </pre>
 
-When using these images, please give credit to AT&T Laboratories Cambridge.
+In this snippet, we iterate through the number of persons and training faces to build the file system path, then feed the model to the DeepFace library and store the dictionary inclusive of the embedding.
 
-http://cam-orl.co.uk/facedatabase.html
+<h2>Calculating the recognition rate</h2>
+<hr>
 
-https://www.kaggle.com/datasets/tavarez/the-orl-database-for-training-and-testing/
+Similarly to the training phase, we iterate through the rest of the faces, extract the vector embedding from each facial picture, and perform VSS. If the recognition is successful, and the face belongs to the known identity, we increment a counter to calculate a relative rate.
 
-size is 2622
+<pre>
+    <code>
+def find_face(facepath):
+vec = DeepFace.represent(facepath, model_name=models[0], enforce_detection=False)[0]['embedding']
+embedding = np.array(vec, dtype=np.float32).astype(np.float32).tobytes()
 
-https://github.com/serengil/deepface
-Deepface is a lightweight face recognition and facial attribute analysis
+q = Query("*=>[KNN 1 @embedding $vec AS score]").return_field("score").dialect(2)
+res = r.ft("face_idx").search(q, query_params={"vec": embedding})
+
+for face in res.docs:
+    print(face.id.split(":")[1])
+    return face.id.split(":")[1]
+
+
+def test():
+success = 0
+for person in range(1, 41):
+    person = "s" + str(person)
+    for face in range(6, 11):
+        facepath = '../../data/orl/' + person + "/" + str(face) + '.bmp'
+        print ("Testing face: " + facepath)
+        found = find_face(facepath)
+        if (person == found):
+            success = success +1
+
+print(success/200*100)
+    </code>
+</pre>
+
+<p>
+    The default VSS parameters used in the example and the chosen embedding model provide a <b>recognition rate of 99.5%</b>. You can experiment further with different models.
+</p>
 
 
 <h2>Running the Jupyter example</h2>
@@ -45,11 +117,11 @@ Once done, install the required modules defined by the <code>requirements.txt</c
   pip install -r requirements.txt
 </pre>
 
-Ensure that your Redis Stack instance is running and complete the configuration of the environment, by setting the environment variable that configure your Redis instance (default is <code>localhost</code> on port 6379). 
+Ensure that your Redis Stack instance is running and complete the configuration of the environment by setting the environment variable that configures your Redis instance (default is <code>localhost</code> on port 6379). 
 
 <code>export REDIS_URL=redis://user:password@host:port</code>
 
-Now you can start the notebook, execute all the cells, and check the recognition rate presented once all the tests are performed.
+Now, you can start the notebook, execute all the cells, and check the recognition rate presented once all the tests are performed.
 
 <pre>
 jupyter notebook faces.ipynb
