@@ -13,14 +13,19 @@
 <hr>
 
 <p>
-    This example delves into modeling and running classification algorithms for human face recognition. While face recognition systems are developed as multi-stage pipelines including motion detection, image preprocessing, face detection and modeling, and more, in this example, we will put the focus on the modeling and classification algorithms using a pre-trained machine learning model optimized for face recognition, and Redis Stack as a vector database.
+    This example delves into modeling and running classification algorithms for human face recognition. While face recognition systems are developed as multi-stage pipelines, including motion detection, image preprocessing, face detection and modeling, classification, and more, in this example, we will put the focus on the modeling and classification algorithms using a pre-trained machine learning model optimized for face recognition, and Redis Stack as a vector database.
 </p>
 <p>
     Pattern recognition involves the training and testing of a system using data samples. One specific application of pattern recognition is face recognition, which focuses on human faces' unique patterns and features to identify individuals. 
 </p>
 <p>
-    We will use the <a href="https://www.kaggle.com/datasets/tavarez/the-orl-database-for-training-and-testing/">ORL Database of Faces</a>, provided by the <a href="http://cam-orl.co.uk/facedatabase.html">AT&T Laboratories Cambridge</a>, to train and test the system. The ORL database is among the simplest face databases, comprised of pictures of 40 individuals taken between April 1992 and April 1994, 10 images each, for a total of 400 photos: 92x112 black and white bitmaps. The faces are aligned and normalized and ready to be processed by a feature extraction algorithm. 
+    We will use the <a href="https://www.kaggle.com/datasets/tavarez/the-orl-database-for-training-and-testing/">ORL Database of Faces</a>, provided by the <a href="http://cam-orl.co.uk/facedatabase.html">AT&T Laboratories Cambridge</a>, to train and test the system. The ORL database is among the simplest face databases, comprised of pictures of 40 individuals taken between April 1992 and April 1994, 10 images each, for a total of 400 photos: 92x112 black and white bitmaps. The faces are aligned, normalized, and ready to be processed by a feature extraction algorithm. 
 </p>
+
+<div align="center">
+    <img width="500px" alt="ORL Database of Faces" src="../../images/section_5/ru402_5_2_0_recommender_visual.jpg"/>
+</div>
+
 <p>
     We will split the dataset into training and testing sets.
     <ol>
@@ -31,43 +36,46 @@
     </ol>
 </p>
 
+<p>
+We can extract the vector embeddings using <a href="https://github.com/serengil/deepface">Deepface</a>, a lightweight library for face recognition and facial attribute analysis. The library supports several models. In the example, we have configured <a href="https://sefiks.com/2018/08/06/deep-face-recognition-with-keras/">VGG-Face</a>, which maps an image to a vector of 2622 elements. 
+</p>
 
-<h2>Modelling the faces</h2>
+<h2>Working with Hashes</h2>
 <hr>
 
-The model extraction is performed using <a href="https://github.com/serengil/deepface">Deepface</a>, a lightweight library for face recognition and facial attribute analysis. The library supports several models. In the example, we have configured <a href="https://sefiks.com/2018/08/06/deep-face-recognition-with-keras/">VGG-Face</a>, which maps an image to a vector of 2622 elements. We will store the embeddings in the Hash data structure in the form:
+We propose two different models for this system. We can model a user as a series of Hashes, each containing a vector embedding. An example of an entry would be:
 
 <pre>
-{ 
-    'person_id':person,
-    'person_path':facepath,
-    'embedding':embedding
-}
+HGETALL face:s33:4
+1) "person_path"
+2) "../../data/orl/s33/4.bmp"
+3) "person_id"
+4) "s33"
+5) "embedding"
+6) "...binary_blob...
 </pre>
-</p>
 
 The code sample that implements the logic follows.
 
 <pre>
     <code>
 for person in range(1, 41):
-person = "s" + str(person)
-for face in range(1, 6):
-    facepath = '../../data/orl/' + person + "/" + str(face) + '.bmp'
-    print ("Training face: " + facepath)
-    vec = DeepFace.represent(facepath, model_name=models[0], enforce_detection=False)[0]['embedding']
-    embedding = np.array(vec, dtype=np.float32).astype(np.float32).tobytes()
-    face_data_values ={ 'person_id':person,
-                        'person_path':facepath,
-                        'embedding':embedding}
-    r.hset('face:'+person+':'+str(face),mapping=face_data_values)
+    person = "s" + str(person)
+    for face in range(1, 6):
+        facepath = '../../data/orl/' + person + "/" + str(face) + '.bmp'
+        print ("Training face: " + facepath)
+        vec = DeepFace.represent(facepath, model_name=models[0], enforce_detection=False)[0]['embedding']
+        embedding = np.array(vec, dtype=np.float32).astype(np.float32).tobytes()
+        face_data_values ={ 'person_id':person,
+                            'person_path':facepath,
+                            'embedding':embedding}
+        r.hset('face:'+person+':'+str(face),mapping=face_data_values)
     </code>
 </pre>
 
 In this snippet, we iterate through the number of persons and training faces to build the file system path, then feed the model to the DeepFace library and store the dictionary inclusive of the embedding.
 
-<h2>Calculating the recognition rate</h2>
-<hr>
+<h3>Calculating the recognition rate</h3>
 
 Similarly to the training phase, we iterate through the rest of the faces, extract the vector embedding from each facial picture, and perform VSS. If the recognition is successful, and the face belongs to the known identity, we increment a counter to calculate a relative rate.
 
@@ -104,11 +112,59 @@ print(success/200*100)
     The default VSS parameters used in the example and the chosen embedding model provide a <b>recognition rate of 99.5%</b>. You can experiment further with different models.
 </p>
 
-
-<h2>Running the Jupyter example</h2>
+<h2>Working with JSON documents</h2>
 <hr>
 
-We have provided you with a Jupyter notebook that includes the entire example. Follow this procedure to create and activate your Python virtual environment:
+Modeling the training set using JSON documents allows a more compact data representation. We can store all the vector embeddings for a person (five, in this example) in the same JSON document rather than one Hash document per vector embedding.
+
+<pre>
+JSON.GET face:s11
+{"person_id":"s11","embeddings":[[0.006758151110261679,0.018658878281712532,...],[0.006758151110261679,0.018658878281712532,...],[0.006758151110261679,0.018658878281712532,...],[0.006758151110261679,0.018658878281712532,...],[0.006758151110261679,0.018658878281712532,...]]
+</pre>
+
+<p>
+    One unique feature of JSON documents is that you can index multiple numeric arrays as <code>VECTOR</code>, use a JSONPath matching multiple numeric arrays using JSONPath operators such as wildcard, filter, union, array slice, and/or recursive descent. 
+</p>
+
+<p>
+    The example proposed so far can be adapted with minor modifications. We can store the training set with the JSON command <a href="https://redis.io/commands/json.arrappend/">JSON.ARRAPPEND</a> under the <code>$.embedding </code> field as follows:
+</p>
+
+<pre><code>
+for person in range(1, 41):
+    person = "s" + str(person)
+    r.json().set(f"face:{person}", "$", {'person_id':person})
+    r.json().set(f"face:{person}", "$.embeddings", [])
+    for face in range(1, 6):
+        facepath = '../../data/orl/' + person + "/" + str(face) + '.bmp'
+        print ("Training face: " + facepath)
+        vec = DeepFace.represent(facepath, model_name=EMBEDDING_MODEL, enforce_detection=False)[0]['embedding']
+        embedding = np.array(vec, dtype=np.float32).astype(np.float32).tolist()
+        r.json().arrappend(f"face:{person}",'$.embeddings', embedding)
+</code></pre>
+
+<p>
+    The index definition changes slightly, as well. Here, we define what portion of the JSON document we would like to index using a JSONPath expression. 
+</p>
+
+<pre><code>
+index_def = IndexDefinition(prefix=["face:"], index_type=IndexType.JSON)
+schema = (VectorField("$.embeddings[*]", "HNSW", {"TYPE": "FLOAT32", "DIM": 2622, "DISTANCE_METRIC": "COSINE"}, as_name="embeddings"))
+r.ft('face_idx').create_index(schema, definition=index_def)
+</code></pre>
+
+<blockquote>
+    Note how the expression <code>$.embeddings[*]</code> selects all the vectors under the field <code>$.embeddings</code>.
+</blockquote>
+
+<p>
+    The execution of this example achieves the same recognition rate. You will now have the chance to study the entire notebook and run the examples.
+</p>
+
+<h2>Running the Jupyter examples</h2>
+<hr>
+
+We have provided you with two Jupyter notebooks, one modeling the training set with Hashes and the other using JSON documents. Follow this procedure to create and activate your Python virtual environment:
 
 <pre>
 python -m venv vssvenv
@@ -125,8 +181,14 @@ Ensure that your Redis Stack instance is running and complete the configuration 
 
 <code>export REDIS_URL=redis://user:password@host:port</code>
 
-Now, you can start the notebook, execute all the cells, and check the recognition rate presented once all the tests are performed.
+Now, you can start the notebooks, execute all the cells, and check the recognition rate presented once all the tests are performed. Execute the following notebook for the example using the Hash data structure:
 
 <pre>
 jupyter notebook faces.ipynb
+</pre>
+
+And the following one to use the JSON data structure:
+
+<pre>
+jupyter notebook faces_json.ipynb
 </pre>

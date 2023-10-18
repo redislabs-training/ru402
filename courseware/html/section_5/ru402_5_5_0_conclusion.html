@@ -1,11 +1,96 @@
 <p>
-In this article, we have explored what happens when a user interacts with an LLM-based chatbot. We have discovered how the system follows a pipeline that includes turning the user's question into an embedding, retrieving relevant content from Redis Enterprise, constructing a prompt for the LLM, and sending the prompt to the model. Additionally, it is possible to cache responses, enabling more efficient and context-aware conversations.
+    In this course, we have introduced semantic search and discovered how vector embeddings can model unstructured data in a convenient format to perform Vector Similarity Search. You have had the chance to run code examples in your favorite programming language and use free pre-trained embedding models. 
 </p>
 
 <p>
-In conclusion, Redis Enterprise's Vector Database offers an invaluable solution for enhancing LLM-based use cases, especially in the context of RAG chatbots. By leveraging Redis Enterprise's capabilities for context retrieval, conversation memory, and semantic caching, you can create more responsive, accurate, and context-aware conversational AI systems that deliver a superior user experience.
+    Additional examples written in Python and delivered as Jupyter notebooks have been provided. They show how simple it can be to implement a recommender system and a face recognition system. 
 </p>
 
 <p>
-Redis Enterprise's seamless integration with LLMs and its ability to handle large-scale data make it a powerful tool for building the next generation of conversational AI applications. Whether you're developing customer support bots, virtual assistants, or knowledge-sharing platforms, Redis Enterprise's Vector Database can take your AI capabilities to the next level, providing users with more accurate and up-to-date information in real-time conversations.
+    We have explored what happens when a user interacts with an LLM-based chatbot. We have discovered how the system follows a pipeline that includes turning the user's question into an embedding, retrieving relevant content from Redis Enterprise, constructing a prompt for the LLM, and sending the prompt to the model. By leveraging Redis stack's capabilities for context retrieval, conversation memory, and semantic caching, you can create more responsive, accurate, and context-aware conversational AI systems that deliver a superior user experience. In conclusion, Redis Stack, Redis Enterprise, and Redis Cloud offer an invaluable solution for enhancing semantic search and conversational AI systems.
 </p>
+
+<p>
+    Redis Enterprise's and Redis Cloud's ability to handle large-scale data makes it a powerful tool for building the next generation of fraud detection and recommender systems, conversational AI applications, and tools to improve productivity. Whether you're developing customer support bots, virtual assistants, or knowledge-sharing platforms, Redis is a full-fledged Vector Database that will take your services to the next level, providing users with more accurate and relevant results and reducing the costs when used as a semantic cache.
+</p>
+
+<h2>Next Steps</h2>
+<hr>
+
+<p>
+    As learned along the course, you can design your next service that uses Redis as a Vector Database relying on the Redis Stack database. You can install it using native packages, as a Docker container, or as a free Redis Cloud subscription. Redis Stack also offers basic configurations for high availability and scalability. Redis Stack is the perfect fit for the development and testing environment. 
+</p>
+
+<h3>Planning for production</h3>
+
+<p>
+    Redis Enterprise and Redis Enterprise Cloud include the same Redis Stack capabilities and are the natural choice for production environments. Redis Enterprise 7.2 enables a higher query throughput, including VSS and full-text search exclusively as part of the company's commercial offerings. Redis Enterprise achieves superior search performance by blending sharding for seamless data expansion with efficient vertical scaling. This ensures optimal distributed processing across the cluster and improves query throughput by up to 16x compared to what was previously possible.
+</p>
+
+<p>At the time of writing, Redis is integrated with IaaS providers and SDK frameworks so that you can configure Redis as the preferred Vector Database in a few steps. The list of service providers and frameworks is growing as time goes by, so it is a good idea to follow <a href= "https://redis.com/blog/">Redis blog</a> for the news.</p>
+
+<h3>Integrations</h3>
+
+<p>
+    Redis Enterprise Cloud has integrated its vector database capabilities with <a href= "https://redis.com/blog/amazon-bedrock-integration-with-redis-enterprise/">Amazon Bedrock</a>, simplifying generative AI application development via API. This integration caters to the unique challenges of generative AI, offering flexibility in storing vector embeddings and providing a high-performance search engine for low latency needs. Additionally, Redis Enterprise Cloud integrates with various AI application development frameworks and libraries. Amazon Bedrock, on the other hand, is a managed service supporting generative AI applications with foundation models from multiple providers, eliminating the need to create custom models or share proprietary data with commercial LLM providers.
+</p>
+
+<p>
+    For Azure, <a href= "https://azure.microsoft.com/en-us/pricing/details/cache/">Azure Cache for Redis Enterprise</a> is utilized to store vector embeddings and perform vector similarity searches. Still, it requires the Enterprise tiers of Azure Cache for Redis. You can build powerful AI Apps combining <a href= "https://azure.microsoft.com/en-us/products/ai-services/openai-service/">Azure OpenAI</a> using the <a href= "https://learn.microsoft.com/en-us/semantic-kernel/overview/">Semantic Kernel</a> SDK, which supports Redis as the Vector Database for the <a href= "https://github.com/microsoft/semantic-kernel/blob/main/python/semantic_kernel/connectors/memory/redis/README.md">Semantic Memory</a>
+</p>
+
+<p>
+    On GCP, you can leverage Google's Vertex AI platform's generative AI capabilities, including the <a href=" https://ai.google/discover/palm2/">Palm 2</a> chat model and an in-console generative AI studio. Using Redis as the preferred Vector Database is a natural choice, especially if running as close to Google services as possible with <a href= "https://redis.com/cloud-partners/google/">Redis Enterprise Cloud on Google Cloud</a></p>
+
+<p>
+    The <a href= "https://developer.nvidia.com/triton-inference-server">NVIDIA Triton Inference Server</a> is a versatile software platform developed by NVIDIA to serve as a production-grade deep learning inference server. Triton can leverage <a href= "https://github.com/triton-inference-server/redis_cache">Redis as cache</a> to supercharge NVIDIA Triton instances.
+</p>
+
+<h3>Integrations with frameworks</h3>
+
+<p>You can build your application without any third-party library, but frameworks are there to make your life simpler. This is why you will find Redis well-integrated in the most popular frameworks to leverage the vector capabilities out-of-the-box. Popular frameworks are:</p>
+
+<ul>
+    <li>
+        <a href="https://python.langchain.com/docs/integrations/vectorstores/redis">LangChain</a>
+    </li>
+    <li>
+        <a href="https://github.com/openai/chatgpt-retrieval-plugin">OpenAI Retrieval Plugin</a>
+    </li>
+    <li>
+        <a href="https://gpt-index.readthedocs.io/en/latest/examples/vector_stores/RedisIndexDemo.html">LlamaIndex</a>
+    </li>
+    <li>
+        <a href="https://www.featureform.com/post/announcing-featureform-0-9">FeatureForm</a>
+    </li>
+    <li>
+        <a href="https://github.com/triton-inference-server/redis_cache">Triton Inference Server</a>
+    </li>
+</ul>
+
+
+<h2>References</h2>
+<hr>
+
+<ul>
+    <li>
+        <a href="https://mlops.community/vector-similarity-search-from-basics-to-production/">Vector Similarity: From Basics to Production</a>
+    </li>
+    <li>
+        <a href="https://redis.com/blog/amazon-bedrock-integration-with-redis-enterprise/">Redis Enterprise Cloud Integration With Amazon Bedrock Now Available</a>
+    </li>
+    <li>
+        <a href= "https://redis.com/blog/building-llm-applications-with-redis-on-googles-vertex-ai-platform/">Building LLM Applications with Redis on Google's Vertex AI Platform</a>
+    </li>
+    <li>
+        <a href= "https://redis.com/blog/build-ecommerce-chatbot-with-redis/">Build an E-commerce Chatbot With Redis, LangChain, and OpenAI</a>
+    </li>
+    <li>
+        <a href= "https://redis.com/blog/using-redis-vss-in-llm-chain/">Using Redis VSS as a Retrieval Step in an LLM Chain</a>
+    </li>
+    <li>
+        <a href= "https://developer.nvidia.com/blog/how-to-build-a-distributed-inference-cache-with-nvidia-triton-and-redis/">How to Build a Distributed Inference Cache with NVIDIA Triton and Redis</a>
+    </li>
+</ul>
+
+
