@@ -1,4 +1,4 @@
-<p>Vector Similarity Search (VSS) is a key function that can be performed between <i>pairs of vectors</i>.</p>
+<p>Vector search is a key function that can be performed between <i>pairs of vectors</i>.</p>
 
 <ul>
     <li>It is the process of finding data points that are similar to a given query vector in a set of vectors.</li>
@@ -7,10 +7,10 @@
 </ul>
 
 <div align="center">
-    <img width="300px" src="../../images/section_2/ru402_2_2_0_vss.png" alt="Vectors translate semantic similarity to vector similarity">
+    <img width="300px" src="../../images/section_2/ru402_2_2_0_vss.png" alt="Vector search translates semantic similarity to the vector space">
 </div>
 
-<h2>Vector similarity in practice</h2>
+<h2>Vector search in practice</h2>
 <hr>
 
 <p>
@@ -42,7 +42,7 @@ pip install sentence_transformers
 
 Now you can copy and paste the following code and execute it. 
 
-<pre>
+<pre><code>
 import numpy as np
 from numpy.linalg import norm
 from sentence_transformers import SentenceTransformer
@@ -72,6 +72,7 @@ def cosine_similarity(a, b):
 print("Query: That is a happy person") 
 for e, s in zip(embeddings, sentences):
     print(s, " -> similarity score = ", cosine_similarity(e, query_embedding))
+</code>
 </pre>
 
 <p>
@@ -98,5 +99,5 @@ The closest the angle between the two vectors to zero, the closest is the cosine
 </p>
 
 <p>
-    Congratulations! You are now able to calculate vector similarity to retrieve semantically relevant results! Before concluding the section, we will introduce the most popular distances that can be used to calculate vector similarity.
+    Congratulations! You are now able to calculate the similarity of vectors to retrieve semantically relevant results! Before concluding the section, we will introduce the most popular distances that can be used.
 </p>

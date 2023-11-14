@@ -142,7 +142,7 @@ async function vss() {
         },
     );
     
-    console.log(`VSS results found: ${similar.total}.`);
+    console.log(`Vector search results found: ${similar.total}.`);
     for (const doc of similar.documents) {
         console.log(`${doc.id}: ${doc.value.content} with score ${doc.value.score}`);
     }

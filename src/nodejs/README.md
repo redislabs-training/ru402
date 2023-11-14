@@ -46,7 +46,7 @@ node App.js
 The example will store three sentences and test one sentence for similarity. The result is:
 
 ```text
-VSS results found: 3.
+Vector search results found: 3.
 doc:1: That is a very happy person with score 0.127055495977
 doc:2: That is a happy dog with score 0.836842417717
 doc:3: Today is a sunny day with score 1.50889515877

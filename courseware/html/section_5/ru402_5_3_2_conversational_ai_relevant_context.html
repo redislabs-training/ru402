@@ -7,7 +7,7 @@
 However, sending back to the LLM the entire conversation may not be convenient for two main reasons.
 
 <p>
-    First, we should filter out <b>irrelevant interactions</b> from the current conversation when these do not relate to the last question. So, in practice, imagine a conversation about food interrupted by a few questions about coding and then additional questions about the former food context. Storing all the questions and responses and their corresponding vector embeddings in the user's session enables VSS to find those semantically similar interactions to the last question. Using this method, we can pick the relevant portion of the conversation.
+    First, we should filter out <b>irrelevant interactions</b> from the current conversation when these do not relate to the last question. So, in practice, imagine a conversation about food interrupted by a few questions about coding and then additional questions about the former food context. Storing all the questions and responses and their corresponding vector embeddings in the user's session enables vector search to find those semantically similar interactions to the last question. Using this method, we can pick the relevant portion of the conversation.
 </p>
 
 <div align="center">

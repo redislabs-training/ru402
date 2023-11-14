@@ -1,5 +1,5 @@
 <p>
-  The idea behind a recommender system using Vector Similarity Search (VSS) is to transform the relevant information (title, description, date of creation, authors, and more) into the corresponding vector embedding and store it in the same document as the original data. Then, when visualizing an entry (an article from a digital newspaper or any other media from the web), it is possible to leverage the stored vector embedding for that entry and feed into a VSS operation to semantically similar content.
+  The idea behind a recommender system using vector search is to transform the relevant information (title, description, date of creation, authors, and more) into the corresponding vector embedding and store it in the same document as the original data. Then, when visualizing an entry (an article from a digital newspaper or any other media from the web), it is possible to leverage the stored vector embedding for that entry and feed into a vector search operation to semantically similar content.
 </p>
 <p>Let's consider the following example.</p>
 
@@ -91,7 +91,7 @@ Result{5 total, docs: [Document {'id': 'book:15', 'payload': None, '$.title': 'T
 <h2>Performing hybrid search</h2>
 <hr>
 
-In this example, we executed a KNN search and retrieved the documents with the closest distance from the document being considered. Alternatively, we can perform a VSS range search to retrieve results having the <b>desired distance</b> from the sample vector embedding. The related code is:
+In this example, we executed a KNN search and retrieved the documents with the closest distance from the document being considered. Alternatively, we can perform a vector search range search to retrieve results having the <b>desired distance</b> from the sample vector embedding. The related code is:
 
 <pre><code>
 def get_recommendation_by_range(key):
@@ -113,7 +113,7 @@ res = r.ft("books_idx").search(q, query_params)
 return res
 </code></pre>
 
-Computing this VSS range search returns similar results.
+Computing this vector search range search returns similar results.
 
 <pre>
 Result{1486 total, docs: [Document {'id': 'book:3008', 'payload': None, 'title': 'Wayward'}, Document {'id': 'book:2706', 'payload': None, 'title': 'Before the Devil Breaks You'}, Document {'id': 'book:23187', 'payload': None, 'title': 'Neverwhere'}, Document {'id': 'book:942', 'payload': None, 'title': 'The Dead'}, Document {'id': 'book:519', 'payload': None, 'title': 'The Last Days of Magic'}]}

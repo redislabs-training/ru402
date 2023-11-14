@@ -51,7 +51,7 @@ JSON.GET moviebot:movie:2 $.names $.overview
 {"$.overview":["While working underground to fix a water main, Brooklyn plumbers—and brothers—Mario and Luigi are transported down a mysterious pipe and wander into a magical new world. But when the brothers are separated, Mario embarks on an epic quest to find Luigi."],"$.names":["The Super Mario Bros. Movie"]}
 </pre>
 
-<p>We can read any nested entry or multiple entries in JSON documents stored in Redis Enterprise using the <a href="https://redis.io/docs/data-types/json/path/">JSONPath</a> syntax. However, we need an index to perform searches. So, we will proceed to create an index for this dataset, define the schema aligned to the data structure, and specify the embedding model and distance metric to be used for semantic search with VSS as long as the vector dimension set by the chosen embedding model, <code>384</code> in this case. A possible index definition could be:</p>
+<p>We can read any nested entry or multiple entries in JSON documents stored in Redis Enterprise using the <a href="https://redis.io/docs/data-types/json/path/">JSONPath</a> syntax. However, we need an index to perform searches. So, we will proceed to create an index for this dataset, define the schema aligned to the data structure, and specify the embedding model and distance metric to be used for semantic search with vector search as long as the vector dimension set by the chosen embedding model, <code>384</code> in this case. A possible index definition could be:</p>
 
 <pre>
 FT.CREATE movie_idx ON JSON PREFIX 1 moviebot:movie: SCHEMA $.crew AS crew TEXT $.overview AS overview TEXT $.genre AS genre TAG SEPARATOR , $.names AS names TAG SEPARATOR , $.overview_embedding AS embedding VECTOR HNSW 6 TYPE FLOAT32 DIM 384 DISTANCE_METRIC COSINE
@@ -77,7 +77,7 @@ FT.SEARCH movie_idx @overview:'While working underground' RETURN 1 names
        2) "The adventures of a group of explorers who make use of a newly discovered wormhole to surpass the limitations on human space travel and conquer the vast distances involved in an interstellar voyage."
 </pre>
 
-<p>Secondary index search is certainly relevant to assist the retrieval of contextual information or additional details, or even when the codebase is tightly coupled to the LLM using <a href="https://platform.openai.com/docs/guides/gpt/function-calling">function calling</a> capabilities. We want to answer questions using information that spans the entire dataset (such as the average rating of all the movies of a specific genre). However, for this proof-of-concept, we will resort to VSS only, and the index defined accordingly.</p>
+<p>Secondary index search is certainly relevant to assist the retrieval of contextual information or additional details, or even when the codebase is tightly coupled to the LLM using <a href="https://platform.openai.com/docs/guides/gpt/function-calling">function calling</a> capabilities. We want to answer questions using information that spans the entire dataset (such as the average rating of all the movies of a specific genre). However, for this proof-of-concept, we will resort to vector search only, and the index defined accordingly.</p>
 
 <p>The final step to complete the preparation phase is deciding what will be indexed by the database; for that, we need to prepare the paragraph to be transformed by the embedding model. We can capture as much information as we want. In the following Python excerpt, we will extract one entry and format the string <code>movie</code>.</p>
 
@@ -106,7 +106,7 @@ conn.json().set(key, "$.overview_embedding", embedding)
 <h2>Retrieval</h2>
 <hr>
 
-<p>In this phase, we deal with the question from the user. The interaction is usually collected in the front end of a web application, using a standard input form, so you can capture it and forward it to the back end for processing. As anticipated, the question and the context will be semantically similar, so a proven technique to instruct the LLM with a context is to transform the question to vector embedding, then perform VSS to collect the desired number of outputs, and finally construct the prompt. A Python sample code to perform VSS in Redis follows:</p>
+<p>In this phase, we deal with the question from the user. The interaction is usually collected in the front end of a web application, using a standard input form, so you can capture it and forward it to the back end for processing. As anticipated, the question and the context will be semantically similar, so a proven technique to instruct the LLM with a context is to transform the question to vector embedding, then perform vector search to collect the desired number of outputs, and finally construct the prompt. A Python sample code to perform vector search in Redis follows:</p>
 
 <pre>
 context = ""
@@ -135,7 +135,7 @@ if (res is not None) and len(res.docs):
         context += movie + "\n"
 </pre>
 
-<p>The search command performs a VSS range search and filters results exceeding a certain score specified by <code>VSS_MINIMUM_SCORE</code> and collects three samples. In the example, we extract the desired metadata from the results and concatenate it to create a context for the interaction.</p>
+<p>The search command performs a vector search range search and filters results exceeding a certain score specified by <code>VSS_MINIMUM_SCORE</code> and collects three samples. In the example, we extract the desired metadata from the results and concatenate it to create a context for the interaction.</p>
 
 <p><em>In our example, the dataset provides a short overview of the movie and other information, so we can construct the context by concatenating the information in a string. However, the context window supported by LLMs is limited by a maximum number of tokens (learn more from the <a href="https://platform.openai.com/tokenizer">OpenAI tokenizer page</a>). In addition, the LLM service provider charges you by the overall number of input and output tokens, so limiting the number of tokens provided in the context and instructing the model to return an output limited in size may be convenient.</em></p>
 
