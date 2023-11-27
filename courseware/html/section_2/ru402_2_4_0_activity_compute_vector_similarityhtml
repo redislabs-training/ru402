@@ -9,10 +9,8 @@
 </ul>
 
 <p>
-    The you will test the similarity of the sentence "That is a happy person" to the three sentences.
+    The you will test the similarity of the sentence "That is a happy person" to the three sentences. You can create a Python environment and install the required libraries to run the example as follows:
 </p>
-
-You can create a Python environment and install the required libraries to run the example as follows:
 
 <pre>
 python3 -m venv vssvenv
@@ -22,40 +20,13 @@ pip install numpy
 pip install sentence_transformers
 </pre>
 
-Now you can copy and paste the following code and execute it. 
+Once your virtual environment is configured, you can move on to the rest of the tasks.
 
-<pre><code>
-import numpy as np
-from numpy.linalg import norm
-from sentence_transformers import SentenceTransformer
-
-# Define the model we want to use (it'll download itself)
-model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
-
-sentences = [
-"That is a very happy person", 
-"That is a happy dog",
-"Today is a sunny day"
-]
-
-sentence = "That is a happy person"
-
-# vector embeddings created from dataset
-embeddings = model.encode(sentences)
-
-# query vector embedding
-query_embedding = model.encode(sentence)
-
-# define our distance metric
-def cosine_similarity(a, b):
-    return np.dot(a, b)/(norm(a)*norm(b))
-
-# run semantic similarity search
-print("Query: That is a happy person") 
-for e, s in zip(embeddings, sentences):
-    print(s, " -> similarity score = ", cosine_similarity(e, query_embedding))
-</code>
-</pre>
+<ol>
+    <li>Download the code provided in the file <a href="https://github.com/redislabs-training/ru402/blob/main/courseware/activities/section_2/cosine_distance.py">cosine_distance.py</a>. </li>
+    <li>Study the code example. In particular, focus on the vector embedding generation and the algorithm that computes cosine similarity in the function <code>cosine_similarity(a, b)</code></li>
+    <li>Execute the example. The first time the sample is executed, the requested embedding model <code>all-MiniLM-L6-v2</code> is downloaded and stored. Wait patiently, this can take a few seconds.</li>
+</ol>
 
 <p>
 Running this example returns the following output:
@@ -81,5 +52,5 @@ The closest the angle between the two vectors to zero, the closest is the cosine
 </p>
 
 <p>
-    Congratulations! You are now able to calculate the similarity of vectors to retrieve semantically relevant results! Before concluding the section, we will introduce the most popular distances that can be used.
+    Congratulations! You are now able to calculate the similarity of vectors to retrieve semantically relevant results!
 </p>
