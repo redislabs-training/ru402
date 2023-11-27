@@ -1,0 +1,27 @@
+We have provided you with a Jupyter notebook that includes the entire example and opens an input form to chat with the Generative AI within the notebook. Follow this procedure to create and activate your Python virtual environment:
+
+<pre>
+python -m venv vssvenv
+source vssvenv/bin/activate
+</pre>
+
+Once done, install the required modules defined by the <code>requirements.txt</code> requirements file, available under <a href="https://github.com/redislabs-training/ru402/tree/main/src/jupyter">/src/jupyter</a>
+
+<pre>
+pip install -r requirements.txt
+</pre>
+
+Ensure that your Redis Stack instance is running and complete the configuration of the environment by setting the two environment variables that configure your Redis instance (default is <code>localhost</code> on port 6379) and your <a href="https://platform.openai.com/docs/quickstart/account-setup">OpenAI token</a>: the chatbot leverages the OpenAI ChatGPT ChatCompletion API. 
+
+<ul>
+<li><code>export REDIS_URL=redis://user:password@host:port</code></li>
+<li><code>export OPENAI_API_KEY="your-openai-token"</code></li>
+</ul>
+
+Now, you can start the notebook and execute all the cells.
+
+<pre>
+jupyter notebook moviebot.ipynb
+</pre>
+
+The execution of the notebook will open an input field. Type your question (e.g., <i>Recommend three science fiction movies</i>) and check the result!
