@@ -1,0 +1,85 @@
+<p>
+    In this activity you will run a simple example to model the sentences considered before:
+</p>
+
+<ul>
+    <li>"That is a very happy person"</li>
+    <li>"That is a happy dog"</li>
+    <li>"Today is a sunny day"</li>
+</ul>
+
+<p>
+    The you will test the similarity of the sentence "That is a happy person" to the three sentences.
+</p>
+
+You can create a Python environment and install the required libraries to run the example as follows:
+
+<pre>
+python3 -m venv vssvenv
+source vssvenv/bin/activate
+
+pip install numpy
+pip install sentence_transformers
+</pre>
+
+Now you can copy and paste the following code and execute it. 
+
+<pre><code>
+import numpy as np
+from numpy.linalg import norm
+from sentence_transformers import SentenceTransformer
+
+# Define the model we want to use (it'll download itself)
+model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+
+sentences = [
+"That is a very happy person", 
+"That is a happy dog",
+"Today is a sunny day"
+]
+
+sentence = "That is a happy person"
+
+# vector embeddings created from dataset
+embeddings = model.encode(sentences)
+
+# query vector embedding
+query_embedding = model.encode(sentence)
+
+# define our distance metric
+def cosine_similarity(a, b):
+    return np.dot(a, b)/(norm(a)*norm(b))
+
+# run semantic similarity search
+print("Query: That is a happy person") 
+for e, s in zip(embeddings, sentences):
+    print(s, " -> similarity score = ", cosine_similarity(e, query_embedding))
+</code>
+</pre>
+
+<p>
+Running this example returns the following output:
+</p>
+
+<pre>
+Query: That is a happy person
+That is a very happy person  -> similarity score =  0.9429151
+That is a happy dog  -> similarity score =  0.6945774
+Today is a sunny day  -> similarity score =  0.256876
+</pre>
+
+<p>
+We could have expected that the sentences "That is a happy person" and "That is a very happy person" represent the pair having the highest similarity score. In the example, we are comparing the angles between pairs of vectors in a 384-dimensional vector space using the cosine distance.
+</p>
+
+<div align="center">
+    <img width="300px" src="../../images/section_2/ru402_2_2_0_cosine_similarity.png" alt="Cosine similarity between the test vector and the stored vectors">
+</div>
+
+<p>
+The closest the angle between the two vectors to zero, the closest is the cosine to one, which indicates a higher similarity between the two sentences. 
+</p>
+
+<p>
+    Congratulations! You are now able to calculate the similarity of vectors to retrieve semantically relevant results! Before concluding the section, we will introduce the most popular distances that can be used.
+</p>
