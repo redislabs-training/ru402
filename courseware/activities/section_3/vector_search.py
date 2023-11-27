@@ -1,8 +1,3 @@
-<p>
-  We know how to generate vector embeddings and create the corresponding index on the vector field. Let's go back to the former example when we introduced the concept of cosine similarity, and let's rewrite the example to store the sentences once they are vectorized and to search them.
-</p>
-
-<pre><code>
 import redis
 from redis.commands.search.query import Query
 import numpy as np
@@ -27,15 +22,3 @@ sentence = "That is a happy person"
 q = Query("*=>[KNN 2 @embedding $vec AS score]").return_field("score").return_field("content").dialect(2)
 res = r.ft("doc_idx").search(q, query_params={"vec": model.encode(sentence).astype(np.float32).tobytes()})
 print(res)
-</code></pre>
-
-<p>The former script will print on the terminal the two closest results using the <a href="https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm">k-nearest neighbors algorithm (KNN)</a>:</p>
-
-<pre><code>Result{2 total, docs: [Document {'id': 'doc:1', 'payload': None, 'score': '0.0570845603943', 'content': 'That is a very happy person'}, Document {'id': 'doc:2', 'payload': None, 'score': '0.305422723293', 'content': 'That is a happy dog'}]}
-</code></pre>
-
-<p>Expectedly, the best match is "That is a very happy person", having a shorter distance from the test sentence "That is a happy person".</p>
-
-<blockquote>
-  <p>Note that the cosine distance is complementary to cosine similarity and can be obtained by subtracting the value of the cosine similarity from 1.</p>
-</blockquote>

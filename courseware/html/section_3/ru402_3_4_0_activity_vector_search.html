@@ -1,0 +1,35 @@
+<p>
+  We know how to generate vector embeddings and create the corresponding index on the vector field. Let's go back to the former example when we introduced the concept of cosine similarity, and let's run the example to store the sentences once they are vectorized and search them.
+</p>
+
+<p>
+  You can create a Python environment and install the required libraries to run the example as follows:
+</p>
+
+<pre>
+python -m venv redisvenv
+source ./redisvenv/bin/activate
+
+pip install numpy
+pip install sentence_transformers
+pip install redis
+</pre>
+
+Once your virtual environment is configured, you can move on to the rest of the tasks.
+
+<ol>
+    <li>Download the code provided in the file <a href="https://github.com/redislabs-training/ru402/blob/main/courseware/activities/section_3/vector_search.py">vector_search.py</a>. </li>
+    <li>Study the code example. In particular, focus on the conversion of the embedding to binary blob and how it is stored in the hash data structure.</li>
+    <li>Execute the example. The first time the sample is executed, the requested embedding model <code>all-MiniLM-L6-v2</code> is downloaded and stored. Wait patiently, this can take a few seconds.</li>
+</ol>
+
+<p>The former script will print on the terminal the two closest results using the <a href="https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm">k-nearest neighbors algorithm (KNN)</a>:</p>
+
+<pre><code>Result{2 total, docs: [Document {'id': 'doc:1', 'payload': None, 'score': '0.0570845603943', 'content': 'That is a very happy person'}, Document {'id': 'doc:2', 'payload': None, 'score': '0.305422723293', 'content': 'That is a happy dog'}]}
+</code></pre>
+
+<p>Expectedly, the best match is "That is a very happy person", having a shorter distance from the test sentence "That is a happy person".</p>
+
+<blockquote>
+  <p>Note that the cosine distance is complementary to cosine similarity and can be obtained by subtracting the value of the cosine similarity from 1.</p>
+</blockquote>

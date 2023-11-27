@@ -13,8 +13,8 @@
 </p>
 
 <pre>
-python3 -m venv vssvenv
-source vssvenv/bin/activate
+python -m venv redisvenv
+source ./redisvenv/bin/activate
 
 pip install numpy
 pip install sentence_transformers
