@@ -195,4 +195,4 @@ You're now ready to take the course!  If you haven't already, [sign up here](htt
 
 > TODO
 
-If you need help or want to chat about all things Redis, [join us on our Discord server](https://discord.gg/46upnugY5B) where you'll find a dedicated channel `#ru204-storing-querying-and-indexing-json-at-speed` for this course.
+If you need help or want to chat about all things Redis, [join us on our Discord server](https://discord.gg/46upnugY5B) where you'll find a dedicated channel `#ru402-redis-vector-database` for this course.
