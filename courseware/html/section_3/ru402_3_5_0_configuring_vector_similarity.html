@@ -20,14 +20,14 @@ Let's cover the main points to consider when designing your application.
 Redis can store and manage vectors in Hash or JSON data types, as discussed. Besides the intrinsic structural differences between the Hash and the JSON, let's make some considerations.
 
 <p>
-    First, the JSON data type supports the same features as the Hash data type when performing VSS. There are some slight differences, though, to take into account when working with a determined type.
+    First, the JSON data type supports the same features as the Hash data type when performing vector search. There are some slight differences, though, to take into account when working with a determined type.
 </p>
 
 <ul>
   <li><strong>Searching</strong>
     <ul>
       <li>When using <strong>Hashes</strong>, storing and searching vectors requires using the binary blob format.</li>
-      <li>For <strong>JSON documents</strong>, formats used for storing and searching are asymmetric: vectors must be stored as lists rather than binary blobs (<code>model.encode(text).astype(np.float32).tolist()</code>), but to perform VSS, JSON requires the binary blob format <code>model.encode(text).astype(np.float32).tobytes()</code></li>
+      <li>For <strong>JSON documents</strong>, formats used for storing and searching are asymmetric: vectors must be stored as lists rather than binary blobs (<code>model.encode(text).astype(np.float32).tolist()</code>), but to perform vector search, JSON requires the binary blob format <code>model.encode(text).astype(np.float32).tobytes()</code></li>
     </ul>
   </li>
   <li><strong>Indexing</strong>. The Hash can index a single vector, defined by the <code>FT.CREATE</code> command. The JSON format, instead, can store and have multiple vectors indexed, identified by a JSONPath expression</li>
