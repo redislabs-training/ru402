@@ -11,12 +11,17 @@ Once done, install the required modules defined by the <code>requirements.txt</c
 pip install -r requirements.txt
 </pre>
 
-Ensure that your Redis Stack instance is running and complete the configuration of the environment by setting the two environment variables that configure your Redis instance (default is <code>localhost</code> on port 6379) and your <a href="https://platform.openai.com/docs/quickstart/account-setup">OpenAI token</a>: the chatbot leverages the OpenAI ChatGPT ChatCompletion API. 
+Ensure that you have database host, port, username and password for your Redis Cloud database at hand (alternatively, a Redis Stack instance is running). Complete the configuration of the environment by setting the environment variable that configures your Redis instance (default is <code>localhost</code> on port 6379) and your <a href="https://platform.openai.com/docs/quickstart/account-setup">OpenAI token</a>: the chatbot leverages the OpenAI ChatGPT ChatCompletion API.
 
-<ul>
-<li><code>export REDIS_URL=redis://user:password@host:port</code></li>
-<li><code>export OPENAI_API_KEY="your-openai-token"</code></li>
-</ul>
+<ol>
+  <li>
+    Connect to the database using RedisInsight or <code>redis-cli</code> and flush the database with <code>FLUSHALL</code>.</li>
+  <li>
+    Configure the environment variable to connect <code>export REDIS_URL=redis://user:password@host:port</code>
+  </li>
+  <li>
+    Configure the OpenAI token using the environment variable: <code>export OPENAI_API_KEY="your-openai-token"</code></li>
+</ol>
 
 Now, you can start the notebook and execute all the cells.
 
