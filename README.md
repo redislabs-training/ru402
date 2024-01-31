@@ -69,7 +69,7 @@ This option doesn't require you to install Redis on your local machine. We provi
 
 Let's get up and running with Redis in the cloud:
 
-* Use your browser to navigate to the [signup page](https://redis.com/try-free?utm_medium=referral&utm_source=redisUniversity&utm_campaign=ru204) on redis.com.
+* Use your browser to navigate to the [signup page](https://redis.com/try-free?utm_medium=referral&utm_source=redisUniversity&utm_campaign=ru402) on redis.com.
 * Complete the signup form and click the "Get Started" button.  Note that you can sign up with your Google or GitHub account if you prefer.
 * When you receive the activation email from Redis, open it and click on the "Activate Account" button.
 * You'll be taken to the dashboard, and a New Subscription dialog appears:
@@ -147,7 +147,7 @@ If your Redis instance is in the cloud:
 
 * **Host:** The host name for your cloud database
 * **Port:** The port number for your cloud database
-* **Database Alias:** RU204
+* **Database Alias:** RU402
 * **Username:** default
 * **Password:** The password for your cloud database
 * **Select Logical Database:** [leave unchecked]
@@ -157,13 +157,13 @@ If you are using Docker or you have installed Redis Stack locally:
 
 * **Host:** localhost
 * **Port:** 6379
-* **Database Alias:** RU204
+* **Database Alias:** RU402
 * **Username:** [leave blank]
 * **Password:** [leave blank]
 * **Select Logical Database:** [leave unchecked]
 * **Use TLS:** [leave unchecked]
 
-Then click the "Add Redis Database" button to connect to your Redis instance.  You should see "RU204" in the list of Redis databases, and can click on it to open the Browser view.
+Then click the "Add Redis Database" button to connect to your Redis instance.  You should see "RU402" in the list of Redis databases, and can click on it to open the Browser view.
 
 ![Configuring RedisInsight Desktop](readme_images/insight_setup.gif)
 
@@ -195,4 +195,4 @@ You're now ready to take the course!  If you haven't already, [sign up here](htt
 
 > TODO
 
-If you need help or want to chat about all things Redis, [join us on our Discord server](https://discord.gg/46upnugY5B) where you'll find a dedicated channel `#ru402-redis-vector-database` for this course.
+If you need help or want to chat about all things Redis, [join us on our Discord server](https://discord.gg/46upnugY5B) where you'll find a dedicated channel [`#ru402-redis-vector-database`](https://discord.com/channels/697882427875393627/1199404889638441090) for this course.
