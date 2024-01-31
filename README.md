@@ -193,6 +193,4 @@ You're now ready to take the course!  If you haven't already, [sign up here](htt
 
 ## You're Not Alone!
 
-> TODO
-
 If you need help or want to chat about all things Redis, [join us on our Discord server](https://discord.gg/46upnugY5B) where you'll find a dedicated channel [`#ru402-redis-vector-database`](https://discord.com/channels/697882427875393627/1199404889638441090) for this course.
