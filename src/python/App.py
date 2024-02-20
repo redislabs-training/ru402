@@ -1,6 +1,6 @@
 from redisvl.index import SearchIndex
 from redisvl.query import VectorQuery
-from redisvl.vectorize.text import HFTextVectorizer
+from redisvl.utils.vectorize.text.huggingface import HFTextVectorizer
 import os
 
 
