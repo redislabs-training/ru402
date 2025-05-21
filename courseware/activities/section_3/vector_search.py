@@ -1,6 +1,6 @@
 import redis
 from redis.commands.search.field import TextField, TagField, VectorField
-from redis.commands.search.indexDefinition import IndexDefinition
+from redis.commands.search.index_definition import IndexDefinition
 from redis.commands.search.query import Query
 import numpy as np
 from sentence_transformers import SentenceTransformer
